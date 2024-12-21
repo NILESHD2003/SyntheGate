@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  MongoDb_replset_mongo1:
+    image: mongo:latest
+    container_name: mongo1
+    ports:
+      - '30001:27017'
+    networks:
+      - mongoNet
+    command: ['--replSet', 'mongoSet']
+    volumes:
+      - mongo1-data:/data/db
+
+  MongoDb_replset_mongo2:
+    image: mongo:latest
+    container_name: mongo2
+    ports:
+      - '30002:27017'
+    networks:
+      - mongoNet
+    command: ['--replSet', 'mongoSet']
+    volumes:
+      - mongo2-data:/data/db
+
+  MongoDb_replset_mongo3:
+    image: mongo:latest
+    container_name: mongo3
+    ports:
+      - '30003:27017'
+    networks:
+      - mongoNet
+    command: ['--replSet', 'mongoSet']
+    volumes:
+      - mongo3-data:/data/db
+
+networks:
+  mongoNet:
+    driver: bridge
+
+volumes:
+  mongo1-data:
+  mongo2-data:
+  mongo3-data:
