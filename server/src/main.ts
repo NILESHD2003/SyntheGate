@@ -41,3 +41,6 @@ async function bootstrap() {
   await app.listen(process.env.PORT ?? 3000);
 }
 bootstrap();
+
+// docker run --name synthegate-postgres -e POSTGRES_USER=root -e POSTGRES_PASSWORD=admin -e POSTGRES_DB=synthegate_data -p 5432:5432 -d postgres
+// postgresql://root:admin@localhost:5432/synthegate_data

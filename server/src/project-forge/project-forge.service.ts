@@ -24,7 +24,7 @@ export class ProjectForgeService {
       slug = generateSlug(3);
     }
 
-    const url = `https://localhost:9000/${slug}`;
+    const url = `${slug}.localhost:9000`;
 
     await this.prismaService.getPostgresClient().project.create({
       data: {
@@ -50,6 +50,9 @@ export class ProjectForgeService {
         where: {
           owner_id: userId,
         },
+        include: {
+          services: true,
+        },
       });
 
     return {
@@ -66,6 +69,9 @@ export class ProjectForgeService {
         where: {
           slug: slug,
           owner_id: userId,
+        },
+        include: {
+          services: true,
         },
       });
 

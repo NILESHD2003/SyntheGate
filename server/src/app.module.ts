@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ProjectForgeModule } from './project-forge/project-forge.module';
@@ -6,9 +6,9 @@ import { PrismaModule } from './prisma/prisma.module';
 import { ConfigModule } from '@nestjs/config';
 import { APP_FILTER } from '@nestjs/core';
 import { GlobalExceptionFilter } from './filters/global-exception.filter';
-import { RouteMasterModule } from './route-master/route-master.module';
 import { ServiceAtlasModule } from './service-atlas/service-atlas.module';
 import { AuthSentinelModule } from './auth-sentinel/auth-sentinel.module';
+import { SubdomainServiceMiddleware } from './middleware/proxyhandler.middleware';
 
 @Module({
   imports: [
@@ -17,7 +17,6 @@ import { AuthSentinelModule } from './auth-sentinel/auth-sentinel.module';
     }),
     ProjectForgeModule,
     PrismaModule,
-    RouteMasterModule,
     ServiceAtlasModule,
     AuthSentinelModule,
   ],
@@ -27,4 +26,9 @@ import { AuthSentinelModule } from './auth-sentinel/auth-sentinel.module';
     { provide: APP_FILTER, useClass: GlobalExceptionFilter },
   ],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    // Apply SubdomainServiceMiddleware globally
+    consumer.apply(SubdomainServiceMiddleware).forRoutes('*');
+  }
+}

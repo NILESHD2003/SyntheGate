@@ -4,11 +4,10 @@ import {
   ProjectForgeController,
   ProjectForgeProjectController,
 } from './project-forge.controller';
-import { ServiceHandlerModule } from './service-handler/service-handler.module';
 
 @Module({
   providers: [ProjectForgeService],
   controllers: [ProjectForgeController, ProjectForgeProjectController],
-  imports: [ServiceHandlerModule],
+  imports: [],
 })
 export class ProjectForgeModule {}
