@@ -128,14 +128,42 @@ exports.Prisma.ProjectScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
-exports.Prisma.ServiceScalarFieldEnum = {
+exports.Prisma.ClusterConfigScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  config_slug: 'config_slug',
+  project_id: 'project_id',
+  clusterMode: 'clusterMode',
+  load_balancing_type: 'load_balancing_type',
+  health_check_interval: 'health_check_interval',
+  failover_enabled: 'failover_enabled',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.ClusterScalarFieldEnum = {
   id: 'id',
   project_id: 'project_id',
   name: 'name',
-  service_url: 'service_url',
-  proxy_url: 'proxy_url',
+  description: 'description',
+  cluster_slug: 'cluster_slug',
+  cluster_url: 'cluster_url',
   created_at: 'created_at',
-  updated_at: 'updated_at'
+  updated_at: 'updated_at',
+  config_id: 'config_id'
+};
+
+exports.Prisma.ServiceNodeScalarFieldEnum = {
+  id: 'id',
+  proxy_url: 'proxy_url',
+  description: 'description',
+  cluster_id: 'cluster_id',
+  is_healthy: 'is_healthy',
+  is_primary: 'is_primary',
+  weight: 'weight',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  active: 'active'
 };
 
 exports.Prisma.UserScalarFieldEnum = {
@@ -154,10 +182,30 @@ exports.Prisma.QueryMode = {
   insensitive: 'insensitive'
 };
 
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
+exports.clusterMode = exports.$Enums.clusterMode = {
+  primary_standby: 'primary_standby',
+  partial_primary_standby: 'partial_primary_standby'
+};
+
+exports.loadBalancingType = exports.$Enums.loadBalancingType = {
+  round_robin: 'round_robin',
+  least_connections: 'least_connections',
+  weighted_round_robin: 'weighted_round_robin',
+  random: 'random',
+  ip_hash: 'ip_hash',
+  least_response_time: 'least_response_time',
+  none: 'none'
+};
 
 exports.Prisma.ModelName = {
   project: 'project',
-  service: 'service',
+  clusterConfig: 'clusterConfig',
+  cluster: 'cluster',
+  serviceNode: 'serviceNode',
   user: 'user'
 };
 

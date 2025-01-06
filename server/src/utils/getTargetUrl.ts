@@ -5,25 +5,25 @@ export class GetTargetUrl {
 
   async findTargetUrlBySubdomainAndService(
     sub_domain: string,
-    service_name: string,
+    cluster_slug: string,
   ) {
-    const project = await this.prismaService
+    const cluster = await this.prismaService
       .getPostgresClient()
-      .project.findUnique({
-        where: { slug: sub_domain },
+      .cluster.findUnique({
+        where: {
+          cluster_url: `${sub_domain}.localhost:9000/${cluster_slug}`,
+        },
         include: {
-          services: true,
+          nodes: true,
         },
       });
 
-    if (!project) {
+    if (!cluster) {
       return null;
     }
 
-    const service = project.services.filter(
-      (service) => service.service_url === `${sub_domain}.localhost:9000/${service_name}`
-    );
+    const activeNode = cluster.nodes.filter((node) => node.active);
 
-    return service[0].proxy_url;
+    return activeNode[0].proxy_url;
   }
 }

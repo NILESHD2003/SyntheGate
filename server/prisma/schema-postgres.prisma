@@ -9,26 +9,85 @@ datasource db {
 }
 
 model project {
-  id          String    @unique @default(uuid()) @db.Uuid
+  id          String          @unique @default(uuid()) @db.Uuid
   owner_id    String
   name        String
-  description String
-  slug        String    @unique
-  base_url    String    @unique
-  created_at  DateTime  @default(now())
-  updated_at  DateTime  @default(now()) @updatedAt
-  services    service[] @relation("ProjectServices")
+  description String?
+  slug        String          @unique
+  base_url    String          @unique
+  created_at  DateTime        @default(now())
+  updated_at  DateTime        @default(now()) @updatedAt
+  clusters    cluster[]       @relation("ProjectClusters")
+  config      clusterConfig[] @relation("ProjectConfig")
 }
 
-model service {
-  id          String   @unique @default(uuid()) @db.Uuid
-  project_id  String   @db.Uuid
+enum clusterMode {
+  primary_standby
+  partial_primary_standby
+}
+
+enum loadBalancingType {
+  round_robin
+  least_connections
+  weighted_round_robin
+  random
+  ip_hash
+  least_response_time
+  none
+}
+
+model clusterConfig {
+  id          String @unique @default(uuid()) @db.Uuid
   name        String
-  service_url String
+  config_slug String
+
+  project_id String @db.Uuid
+
+  clusterMode           clusterMode       @default(primary_standby)
+  load_balancing_type   loadBalancingType @default(none) // round-robin, least-connections, etc.
+  health_check_interval Int               @default(30) // Interval in seconds
+  failover_enabled      Boolean           @default(true) // Automatic failover
+
+  clusters cluster[] @relation("ClusterConfig") // A cluster config can be used in multiple clusters
+
+  project project @relation("ProjectConfig", fields: [project_id], references: [id])
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
+}
+
+model cluster {
+  id           String  @unique @default(uuid()) @db.Uuid
+  project_id   String  @db.Uuid
+  name         String
+  description  String?
+  cluster_slug String
+  cluster_url  String  @unique
+
+  nodes  serviceNode[]  @relation("ClusterServiceNodes")
+  config clusterConfig? @relation("ClusterConfig", fields: [config_id], references: [id]) // Make this optional
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
+  project    project  @relation("ProjectClusters", fields: [project_id], references: [id])
+
+  config_id String? @db.Uuid // Add this field to be used as the foreign key
+
+  @@index([project_id])
+}
+
+model serviceNode {
+  id          String   @unique @default(uuid()) @db.Uuid
   proxy_url   String
+  description String?
+  cluster_id  String   @db.Uuid
+  is_healthy  Boolean  @default(true)
+  is_primary  Boolean  @default(false)
+  weight      Int?     @default(1)
   created_at  DateTime @default(now())
   updated_at  DateTime @default(now()) @updatedAt
-  project     project  @relation("ProjectServices", fields: [project_id], references: [id])
+  cluster     cluster  @relation("ClusterServiceNodes", fields: [cluster_id], references: [id])
+  active      Boolean  @default(true)
 }
 
 model user {

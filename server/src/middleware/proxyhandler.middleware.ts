@@ -22,6 +22,7 @@ export class SubdomainServiceMiddleware implements NestMiddleware {
     console.log(req.originalUrl);
 
     if (subdomain && host.includes('.')) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const [_, serviceName, ...restPath] = req.originalUrl.split('/');
       const path = restPath.join('/');
 
@@ -38,7 +39,9 @@ export class SubdomainServiceMiddleware implements NestMiddleware {
           this.logger.warn(
             `Service not found for subdomain "${subdomain}" and service "${serviceName}"`,
           );
-          return res.status(404).send('Service not found.');
+          return res
+            .status(404)
+            .send('Service not found. Service may be inactive.');
         }
 
         const proxyTarget = `${targetUrl}/${path}`;

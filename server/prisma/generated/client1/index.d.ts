@@ -19,15 +19,59 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type project = $Result.DefaultSelection<Prisma.$projectPayload>
 /**
- * Model service
+ * Model clusterConfig
  * 
  */
-export type service = $Result.DefaultSelection<Prisma.$servicePayload>
+export type clusterConfig = $Result.DefaultSelection<Prisma.$clusterConfigPayload>
+/**
+ * Model cluster
+ * 
+ */
+export type cluster = $Result.DefaultSelection<Prisma.$clusterPayload>
+/**
+ * Model serviceNode
+ * 
+ */
+export type serviceNode = $Result.DefaultSelection<Prisma.$serviceNodePayload>
 /**
  * Model user
  * 
  */
 export type user = $Result.DefaultSelection<Prisma.$userPayload>
+
+/**
+ * Enums
+ */
+export namespace $Enums {
+  export const clusterMode: {
+  primary_standby: 'primary_standby',
+  partial_primary_standby: 'partial_primary_standby'
+};
+
+export type clusterMode = (typeof clusterMode)[keyof typeof clusterMode]
+
+
+export const loadBalancingType: {
+  round_robin: 'round_robin',
+  least_connections: 'least_connections',
+  weighted_round_robin: 'weighted_round_robin',
+  random: 'random',
+  ip_hash: 'ip_hash',
+  least_response_time: 'least_response_time',
+  none: 'none'
+};
+
+export type loadBalancingType = (typeof loadBalancingType)[keyof typeof loadBalancingType]
+
+}
+
+export type clusterMode = $Enums.clusterMode
+
+export const clusterMode: typeof $Enums.clusterMode
+
+export type loadBalancingType = $Enums.loadBalancingType
+
+export const loadBalancingType: typeof $Enums.loadBalancingType
 
 /**
  * ##  Prisma Client ʲˢ
@@ -163,14 +207,34 @@ export class PrismaClient<
   get project(): Prisma.projectDelegate<ExtArgs>;
 
   /**
-   * `prisma.service`: Exposes CRUD operations for the **service** model.
+   * `prisma.clusterConfig`: Exposes CRUD operations for the **clusterConfig** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more Services
-    * const services = await prisma.service.findMany()
+    * // Fetch zero or more ClusterConfigs
+    * const clusterConfigs = await prisma.clusterConfig.findMany()
     * ```
     */
-  get service(): Prisma.serviceDelegate<ExtArgs>;
+  get clusterConfig(): Prisma.clusterConfigDelegate<ExtArgs>;
+
+  /**
+   * `prisma.cluster`: Exposes CRUD operations for the **cluster** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Clusters
+    * const clusters = await prisma.cluster.findMany()
+    * ```
+    */
+  get cluster(): Prisma.clusterDelegate<ExtArgs>;
+
+  /**
+   * `prisma.serviceNode`: Exposes CRUD operations for the **serviceNode** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ServiceNodes
+    * const serviceNodes = await prisma.serviceNode.findMany()
+    * ```
+    */
+  get serviceNode(): Prisma.serviceNodeDelegate<ExtArgs>;
 
   /**
    * `prisma.user`: Exposes CRUD operations for the **user** model.
@@ -622,7 +686,9 @@ export namespace Prisma {
 
   export const ModelName: {
     project: 'project',
-    service: 'service',
+    clusterConfig: 'clusterConfig',
+    cluster: 'cluster',
+    serviceNode: 'serviceNode',
     user: 'user'
   };
 
@@ -639,7 +705,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "project" | "service" | "user"
+      modelProps: "project" | "clusterConfig" | "cluster" | "serviceNode" | "user"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -713,73 +779,213 @@ export namespace Prisma {
           }
         }
       }
-      service: {
-        payload: Prisma.$servicePayload<ExtArgs>
-        fields: Prisma.serviceFieldRefs
+      clusterConfig: {
+        payload: Prisma.$clusterConfigPayload<ExtArgs>
+        fields: Prisma.clusterConfigFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.serviceFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$servicePayload> | null
+            args: Prisma.clusterConfigFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$clusterConfigPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.serviceFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$servicePayload>
+            args: Prisma.clusterConfigFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$clusterConfigPayload>
           }
           findFirst: {
-            args: Prisma.serviceFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$servicePayload> | null
+            args: Prisma.clusterConfigFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$clusterConfigPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.serviceFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$servicePayload>
+            args: Prisma.clusterConfigFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$clusterConfigPayload>
           }
           findMany: {
-            args: Prisma.serviceFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$servicePayload>[]
+            args: Prisma.clusterConfigFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$clusterConfigPayload>[]
           }
           create: {
-            args: Prisma.serviceCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$servicePayload>
+            args: Prisma.clusterConfigCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$clusterConfigPayload>
           }
           createMany: {
-            args: Prisma.serviceCreateManyArgs<ExtArgs>
+            args: Prisma.clusterConfigCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           createManyAndReturn: {
-            args: Prisma.serviceCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$servicePayload>[]
+            args: Prisma.clusterConfigCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$clusterConfigPayload>[]
           }
           delete: {
-            args: Prisma.serviceDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$servicePayload>
+            args: Prisma.clusterConfigDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$clusterConfigPayload>
           }
           update: {
-            args: Prisma.serviceUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$servicePayload>
+            args: Prisma.clusterConfigUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$clusterConfigPayload>
           }
           deleteMany: {
-            args: Prisma.serviceDeleteManyArgs<ExtArgs>
+            args: Prisma.clusterConfigDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.serviceUpdateManyArgs<ExtArgs>
+            args: Prisma.clusterConfigUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           upsert: {
-            args: Prisma.serviceUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$servicePayload>
+            args: Prisma.clusterConfigUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$clusterConfigPayload>
           }
           aggregate: {
-            args: Prisma.ServiceAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateService>
+            args: Prisma.ClusterConfigAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateClusterConfig>
           }
           groupBy: {
-            args: Prisma.serviceGroupByArgs<ExtArgs>
-            result: $Utils.Optional<ServiceGroupByOutputType>[]
+            args: Prisma.clusterConfigGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ClusterConfigGroupByOutputType>[]
           }
           count: {
-            args: Prisma.serviceCountArgs<ExtArgs>
-            result: $Utils.Optional<ServiceCountAggregateOutputType> | number
+            args: Prisma.clusterConfigCountArgs<ExtArgs>
+            result: $Utils.Optional<ClusterConfigCountAggregateOutputType> | number
+          }
+        }
+      }
+      cluster: {
+        payload: Prisma.$clusterPayload<ExtArgs>
+        fields: Prisma.clusterFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.clusterFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$clusterPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.clusterFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$clusterPayload>
+          }
+          findFirst: {
+            args: Prisma.clusterFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$clusterPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.clusterFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$clusterPayload>
+          }
+          findMany: {
+            args: Prisma.clusterFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$clusterPayload>[]
+          }
+          create: {
+            args: Prisma.clusterCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$clusterPayload>
+          }
+          createMany: {
+            args: Prisma.clusterCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.clusterCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$clusterPayload>[]
+          }
+          delete: {
+            args: Prisma.clusterDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$clusterPayload>
+          }
+          update: {
+            args: Prisma.clusterUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$clusterPayload>
+          }
+          deleteMany: {
+            args: Prisma.clusterDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.clusterUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.clusterUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$clusterPayload>
+          }
+          aggregate: {
+            args: Prisma.ClusterAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCluster>
+          }
+          groupBy: {
+            args: Prisma.clusterGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ClusterGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.clusterCountArgs<ExtArgs>
+            result: $Utils.Optional<ClusterCountAggregateOutputType> | number
+          }
+        }
+      }
+      serviceNode: {
+        payload: Prisma.$serviceNodePayload<ExtArgs>
+        fields: Prisma.serviceNodeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.serviceNodeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$serviceNodePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.serviceNodeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$serviceNodePayload>
+          }
+          findFirst: {
+            args: Prisma.serviceNodeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$serviceNodePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.serviceNodeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$serviceNodePayload>
+          }
+          findMany: {
+            args: Prisma.serviceNodeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$serviceNodePayload>[]
+          }
+          create: {
+            args: Prisma.serviceNodeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$serviceNodePayload>
+          }
+          createMany: {
+            args: Prisma.serviceNodeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.serviceNodeCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$serviceNodePayload>[]
+          }
+          delete: {
+            args: Prisma.serviceNodeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$serviceNodePayload>
+          }
+          update: {
+            args: Prisma.serviceNodeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$serviceNodePayload>
+          }
+          deleteMany: {
+            args: Prisma.serviceNodeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.serviceNodeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.serviceNodeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$serviceNodePayload>
+          }
+          aggregate: {
+            args: Prisma.ServiceNodeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateServiceNode>
+          }
+          groupBy: {
+            args: Prisma.serviceNodeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ServiceNodeGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.serviceNodeCountArgs<ExtArgs>
+            result: $Utils.Optional<ServiceNodeCountAggregateOutputType> | number
           }
         }
       }
@@ -1014,11 +1220,13 @@ export namespace Prisma {
    */
 
   export type ProjectCountOutputType = {
-    services: number
+    clusters: number
+    config: number
   }
 
   export type ProjectCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    services?: boolean | ProjectCountOutputTypeCountServicesArgs
+    clusters?: boolean | ProjectCountOutputTypeCountClustersArgs
+    config?: boolean | ProjectCountOutputTypeCountConfigArgs
   }
 
   // Custom InputTypes
@@ -1035,8 +1243,77 @@ export namespace Prisma {
   /**
    * ProjectCountOutputType without action
    */
-  export type ProjectCountOutputTypeCountServicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: serviceWhereInput
+  export type ProjectCountOutputTypeCountClustersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: clusterWhereInput
+  }
+
+  /**
+   * ProjectCountOutputType without action
+   */
+  export type ProjectCountOutputTypeCountConfigArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: clusterConfigWhereInput
+  }
+
+
+  /**
+   * Count Type ClusterConfigCountOutputType
+   */
+
+  export type ClusterConfigCountOutputType = {
+    clusters: number
+  }
+
+  export type ClusterConfigCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    clusters?: boolean | ClusterConfigCountOutputTypeCountClustersArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ClusterConfigCountOutputType without action
+   */
+  export type ClusterConfigCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClusterConfigCountOutputType
+     */
+    select?: ClusterConfigCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ClusterConfigCountOutputType without action
+   */
+  export type ClusterConfigCountOutputTypeCountClustersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: clusterWhereInput
+  }
+
+
+  /**
+   * Count Type ClusterCountOutputType
+   */
+
+  export type ClusterCountOutputType = {
+    nodes: number
+  }
+
+  export type ClusterCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    nodes?: boolean | ClusterCountOutputTypeCountNodesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ClusterCountOutputType without action
+   */
+  export type ClusterCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClusterCountOutputType
+     */
+    select?: ClusterCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ClusterCountOutputType without action
+   */
+  export type ClusterCountOutputTypeCountNodesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: serviceNodeWhereInput
   }
 
 
@@ -1199,7 +1476,7 @@ export namespace Prisma {
     id: string
     owner_id: string
     name: string
-    description: string
+    description: string | null
     slug: string
     base_url: string
     created_at: Date
@@ -1232,7 +1509,8 @@ export namespace Prisma {
     base_url?: boolean
     created_at?: boolean
     updated_at?: boolean
-    services?: boolean | project$servicesArgs<ExtArgs>
+    clusters?: boolean | project$clustersArgs<ExtArgs>
+    config?: boolean | project$configArgs<ExtArgs>
     _count?: boolean | ProjectCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["project"]>
 
@@ -1259,7 +1537,8 @@ export namespace Prisma {
   }
 
   export type projectInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    services?: boolean | project$servicesArgs<ExtArgs>
+    clusters?: boolean | project$clustersArgs<ExtArgs>
+    config?: boolean | project$configArgs<ExtArgs>
     _count?: boolean | ProjectCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type projectIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1267,13 +1546,14 @@ export namespace Prisma {
   export type $projectPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "project"
     objects: {
-      services: Prisma.$servicePayload<ExtArgs>[]
+      clusters: Prisma.$clusterPayload<ExtArgs>[]
+      config: Prisma.$clusterConfigPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       owner_id: string
       name: string
-      description: string
+      description: string | null
       slug: string
       base_url: string
       created_at: Date
@@ -1642,7 +1922,8 @@ export namespace Prisma {
    */
   export interface Prisma__projectClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    services<T extends project$servicesArgs<ExtArgs> = {}>(args?: Subset<T, project$servicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$servicePayload<ExtArgs>, T, "findMany"> | Null>
+    clusters<T extends project$clustersArgs<ExtArgs> = {}>(args?: Subset<T, project$clustersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$clusterPayload<ExtArgs>, T, "findMany"> | Null>
+    config<T extends project$configArgs<ExtArgs> = {}>(args?: Subset<T, project$configArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$clusterConfigPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1994,23 +2275,43 @@ export namespace Prisma {
   }
 
   /**
-   * project.services
+   * project.clusters
    */
-  export type project$servicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type project$clustersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the service
+     * Select specific fields to fetch from the cluster
      */
-    select?: serviceSelect<ExtArgs> | null
+    select?: clusterSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: serviceInclude<ExtArgs> | null
-    where?: serviceWhereInput
-    orderBy?: serviceOrderByWithRelationInput | serviceOrderByWithRelationInput[]
-    cursor?: serviceWhereUniqueInput
+    include?: clusterInclude<ExtArgs> | null
+    where?: clusterWhereInput
+    orderBy?: clusterOrderByWithRelationInput | clusterOrderByWithRelationInput[]
+    cursor?: clusterWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: ServiceScalarFieldEnum | ServiceScalarFieldEnum[]
+    distinct?: ClusterScalarFieldEnum | ClusterScalarFieldEnum[]
+  }
+
+  /**
+   * project.config
+   */
+  export type project$configArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the clusterConfig
+     */
+    select?: clusterConfigSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: clusterConfigInclude<ExtArgs> | null
+    where?: clusterConfigWhereInput
+    orderBy?: clusterConfigOrderByWithRelationInput | clusterConfigOrderByWithRelationInput[]
+    cursor?: clusterConfigWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ClusterConfigScalarFieldEnum | ClusterConfigScalarFieldEnum[]
   }
 
   /**
@@ -2029,359 +2330,431 @@ export namespace Prisma {
 
 
   /**
-   * Model service
+   * Model clusterConfig
    */
 
-  export type AggregateService = {
-    _count: ServiceCountAggregateOutputType | null
-    _min: ServiceMinAggregateOutputType | null
-    _max: ServiceMaxAggregateOutputType | null
+  export type AggregateClusterConfig = {
+    _count: ClusterConfigCountAggregateOutputType | null
+    _avg: ClusterConfigAvgAggregateOutputType | null
+    _sum: ClusterConfigSumAggregateOutputType | null
+    _min: ClusterConfigMinAggregateOutputType | null
+    _max: ClusterConfigMaxAggregateOutputType | null
   }
 
-  export type ServiceMinAggregateOutputType = {
+  export type ClusterConfigAvgAggregateOutputType = {
+    health_check_interval: number | null
+  }
+
+  export type ClusterConfigSumAggregateOutputType = {
+    health_check_interval: number | null
+  }
+
+  export type ClusterConfigMinAggregateOutputType = {
     id: string | null
-    project_id: string | null
     name: string | null
-    service_url: string | null
-    proxy_url: string | null
+    config_slug: string | null
+    project_id: string | null
+    clusterMode: $Enums.clusterMode | null
+    load_balancing_type: $Enums.loadBalancingType | null
+    health_check_interval: number | null
+    failover_enabled: boolean | null
     created_at: Date | null
     updated_at: Date | null
   }
 
-  export type ServiceMaxAggregateOutputType = {
+  export type ClusterConfigMaxAggregateOutputType = {
     id: string | null
-    project_id: string | null
     name: string | null
-    service_url: string | null
-    proxy_url: string | null
+    config_slug: string | null
+    project_id: string | null
+    clusterMode: $Enums.clusterMode | null
+    load_balancing_type: $Enums.loadBalancingType | null
+    health_check_interval: number | null
+    failover_enabled: boolean | null
     created_at: Date | null
     updated_at: Date | null
   }
 
-  export type ServiceCountAggregateOutputType = {
+  export type ClusterConfigCountAggregateOutputType = {
     id: number
-    project_id: number
     name: number
-    service_url: number
-    proxy_url: number
+    config_slug: number
+    project_id: number
+    clusterMode: number
+    load_balancing_type: number
+    health_check_interval: number
+    failover_enabled: number
     created_at: number
     updated_at: number
     _all: number
   }
 
 
-  export type ServiceMinAggregateInputType = {
+  export type ClusterConfigAvgAggregateInputType = {
+    health_check_interval?: true
+  }
+
+  export type ClusterConfigSumAggregateInputType = {
+    health_check_interval?: true
+  }
+
+  export type ClusterConfigMinAggregateInputType = {
     id?: true
-    project_id?: true
     name?: true
-    service_url?: true
-    proxy_url?: true
+    config_slug?: true
+    project_id?: true
+    clusterMode?: true
+    load_balancing_type?: true
+    health_check_interval?: true
+    failover_enabled?: true
     created_at?: true
     updated_at?: true
   }
 
-  export type ServiceMaxAggregateInputType = {
+  export type ClusterConfigMaxAggregateInputType = {
     id?: true
-    project_id?: true
     name?: true
-    service_url?: true
-    proxy_url?: true
+    config_slug?: true
+    project_id?: true
+    clusterMode?: true
+    load_balancing_type?: true
+    health_check_interval?: true
+    failover_enabled?: true
     created_at?: true
     updated_at?: true
   }
 
-  export type ServiceCountAggregateInputType = {
+  export type ClusterConfigCountAggregateInputType = {
     id?: true
-    project_id?: true
     name?: true
-    service_url?: true
-    proxy_url?: true
+    config_slug?: true
+    project_id?: true
+    clusterMode?: true
+    load_balancing_type?: true
+    health_check_interval?: true
+    failover_enabled?: true
     created_at?: true
     updated_at?: true
     _all?: true
   }
 
-  export type ServiceAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ClusterConfigAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which service to aggregate.
+     * Filter which clusterConfig to aggregate.
      */
-    where?: serviceWhereInput
+    where?: clusterConfigWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of services to fetch.
+     * Determine the order of clusterConfigs to fetch.
      */
-    orderBy?: serviceOrderByWithRelationInput | serviceOrderByWithRelationInput[]
+    orderBy?: clusterConfigOrderByWithRelationInput | clusterConfigOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: serviceWhereUniqueInput
+    cursor?: clusterConfigWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` services from the position of the cursor.
+     * Take `±n` clusterConfigs from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` services.
+     * Skip the first `n` clusterConfigs.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned services
+     * Count returned clusterConfigs
     **/
-    _count?: true | ServiceCountAggregateInputType
+    _count?: true | ClusterConfigCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ClusterConfigAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ClusterConfigSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: ServiceMinAggregateInputType
+    _min?: ClusterConfigMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: ServiceMaxAggregateInputType
+    _max?: ClusterConfigMaxAggregateInputType
   }
 
-  export type GetServiceAggregateType<T extends ServiceAggregateArgs> = {
-        [P in keyof T & keyof AggregateService]: P extends '_count' | 'count'
+  export type GetClusterConfigAggregateType<T extends ClusterConfigAggregateArgs> = {
+        [P in keyof T & keyof AggregateClusterConfig]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateService[P]>
-      : GetScalarType<T[P], AggregateService[P]>
+        : GetScalarType<T[P], AggregateClusterConfig[P]>
+      : GetScalarType<T[P], AggregateClusterConfig[P]>
   }
 
 
 
 
-  export type serviceGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: serviceWhereInput
-    orderBy?: serviceOrderByWithAggregationInput | serviceOrderByWithAggregationInput[]
-    by: ServiceScalarFieldEnum[] | ServiceScalarFieldEnum
-    having?: serviceScalarWhereWithAggregatesInput
+  export type clusterConfigGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: clusterConfigWhereInput
+    orderBy?: clusterConfigOrderByWithAggregationInput | clusterConfigOrderByWithAggregationInput[]
+    by: ClusterConfigScalarFieldEnum[] | ClusterConfigScalarFieldEnum
+    having?: clusterConfigScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: ServiceCountAggregateInputType | true
-    _min?: ServiceMinAggregateInputType
-    _max?: ServiceMaxAggregateInputType
+    _count?: ClusterConfigCountAggregateInputType | true
+    _avg?: ClusterConfigAvgAggregateInputType
+    _sum?: ClusterConfigSumAggregateInputType
+    _min?: ClusterConfigMinAggregateInputType
+    _max?: ClusterConfigMaxAggregateInputType
   }
 
-  export type ServiceGroupByOutputType = {
+  export type ClusterConfigGroupByOutputType = {
     id: string
-    project_id: string
     name: string
-    service_url: string
-    proxy_url: string
+    config_slug: string
+    project_id: string
+    clusterMode: $Enums.clusterMode
+    load_balancing_type: $Enums.loadBalancingType
+    health_check_interval: number
+    failover_enabled: boolean
     created_at: Date
     updated_at: Date
-    _count: ServiceCountAggregateOutputType | null
-    _min: ServiceMinAggregateOutputType | null
-    _max: ServiceMaxAggregateOutputType | null
+    _count: ClusterConfigCountAggregateOutputType | null
+    _avg: ClusterConfigAvgAggregateOutputType | null
+    _sum: ClusterConfigSumAggregateOutputType | null
+    _min: ClusterConfigMinAggregateOutputType | null
+    _max: ClusterConfigMaxAggregateOutputType | null
   }
 
-  type GetServiceGroupByPayload<T extends serviceGroupByArgs> = Prisma.PrismaPromise<
+  type GetClusterConfigGroupByPayload<T extends clusterConfigGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<ServiceGroupByOutputType, T['by']> &
+      PickEnumerable<ClusterConfigGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof ServiceGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof ClusterConfigGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], ServiceGroupByOutputType[P]>
-            : GetScalarType<T[P], ServiceGroupByOutputType[P]>
+              : GetScalarType<T[P], ClusterConfigGroupByOutputType[P]>
+            : GetScalarType<T[P], ClusterConfigGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type serviceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type clusterConfigSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    project_id?: boolean
     name?: boolean
-    service_url?: boolean
-    proxy_url?: boolean
+    config_slug?: boolean
+    project_id?: boolean
+    clusterMode?: boolean
+    load_balancing_type?: boolean
+    health_check_interval?: boolean
+    failover_enabled?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    clusters?: boolean | clusterConfig$clustersArgs<ExtArgs>
+    project?: boolean | projectDefaultArgs<ExtArgs>
+    _count?: boolean | ClusterConfigCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["clusterConfig"]>
+
+  export type clusterConfigSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    config_slug?: boolean
+    project_id?: boolean
+    clusterMode?: boolean
+    load_balancing_type?: boolean
+    health_check_interval?: boolean
+    failover_enabled?: boolean
     created_at?: boolean
     updated_at?: boolean
     project?: boolean | projectDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["service"]>
+  }, ExtArgs["result"]["clusterConfig"]>
 
-  export type serviceSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type clusterConfigSelectScalar = {
     id?: boolean
-    project_id?: boolean
     name?: boolean
-    service_url?: boolean
-    proxy_url?: boolean
-    created_at?: boolean
-    updated_at?: boolean
-    project?: boolean | projectDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["service"]>
-
-  export type serviceSelectScalar = {
-    id?: boolean
+    config_slug?: boolean
     project_id?: boolean
-    name?: boolean
-    service_url?: boolean
-    proxy_url?: boolean
+    clusterMode?: boolean
+    load_balancing_type?: boolean
+    health_check_interval?: boolean
+    failover_enabled?: boolean
     created_at?: boolean
     updated_at?: boolean
   }
 
-  export type serviceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type clusterConfigInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    clusters?: boolean | clusterConfig$clustersArgs<ExtArgs>
     project?: boolean | projectDefaultArgs<ExtArgs>
+    _count?: boolean | ClusterConfigCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type serviceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type clusterConfigIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     project?: boolean | projectDefaultArgs<ExtArgs>
   }
 
-  export type $servicePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "service"
+  export type $clusterConfigPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "clusterConfig"
     objects: {
+      clusters: Prisma.$clusterPayload<ExtArgs>[]
       project: Prisma.$projectPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      project_id: string
       name: string
-      service_url: string
-      proxy_url: string
+      config_slug: string
+      project_id: string
+      clusterMode: $Enums.clusterMode
+      load_balancing_type: $Enums.loadBalancingType
+      health_check_interval: number
+      failover_enabled: boolean
       created_at: Date
       updated_at: Date
-    }, ExtArgs["result"]["service"]>
+    }, ExtArgs["result"]["clusterConfig"]>
     composites: {}
   }
 
-  type serviceGetPayload<S extends boolean | null | undefined | serviceDefaultArgs> = $Result.GetResult<Prisma.$servicePayload, S>
+  type clusterConfigGetPayload<S extends boolean | null | undefined | clusterConfigDefaultArgs> = $Result.GetResult<Prisma.$clusterConfigPayload, S>
 
-  type serviceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<serviceFindManyArgs, 'select' | 'include' | 'distinct'> & {
-      select?: ServiceCountAggregateInputType | true
+  type clusterConfigCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<clusterConfigFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: ClusterConfigCountAggregateInputType | true
     }
 
-  export interface serviceDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['service'], meta: { name: 'service' } }
+  export interface clusterConfigDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['clusterConfig'], meta: { name: 'clusterConfig' } }
     /**
-     * Find zero or one Service that matches the filter.
-     * @param {serviceFindUniqueArgs} args - Arguments to find a Service
+     * Find zero or one ClusterConfig that matches the filter.
+     * @param {clusterConfigFindUniqueArgs} args - Arguments to find a ClusterConfig
      * @example
-     * // Get one Service
-     * const service = await prisma.service.findUnique({
+     * // Get one ClusterConfig
+     * const clusterConfig = await prisma.clusterConfig.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends serviceFindUniqueArgs>(args: SelectSubset<T, serviceFindUniqueArgs<ExtArgs>>): Prisma__serviceClient<$Result.GetResult<Prisma.$servicePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+    findUnique<T extends clusterConfigFindUniqueArgs>(args: SelectSubset<T, clusterConfigFindUniqueArgs<ExtArgs>>): Prisma__clusterConfigClient<$Result.GetResult<Prisma.$clusterConfigPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
 
     /**
-     * Find one Service that matches the filter or throw an error with `error.code='P2025'` 
+     * Find one ClusterConfig that matches the filter or throw an error with `error.code='P2025'` 
      * if no matches were found.
-     * @param {serviceFindUniqueOrThrowArgs} args - Arguments to find a Service
+     * @param {clusterConfigFindUniqueOrThrowArgs} args - Arguments to find a ClusterConfig
      * @example
-     * // Get one Service
-     * const service = await prisma.service.findUniqueOrThrow({
+     * // Get one ClusterConfig
+     * const clusterConfig = await prisma.clusterConfig.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends serviceFindUniqueOrThrowArgs>(args: SelectSubset<T, serviceFindUniqueOrThrowArgs<ExtArgs>>): Prisma__serviceClient<$Result.GetResult<Prisma.$servicePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+    findUniqueOrThrow<T extends clusterConfigFindUniqueOrThrowArgs>(args: SelectSubset<T, clusterConfigFindUniqueOrThrowArgs<ExtArgs>>): Prisma__clusterConfigClient<$Result.GetResult<Prisma.$clusterConfigPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
 
     /**
-     * Find the first Service that matches the filter.
+     * Find the first ClusterConfig that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {serviceFindFirstArgs} args - Arguments to find a Service
+     * @param {clusterConfigFindFirstArgs} args - Arguments to find a ClusterConfig
      * @example
-     * // Get one Service
-     * const service = await prisma.service.findFirst({
+     * // Get one ClusterConfig
+     * const clusterConfig = await prisma.clusterConfig.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends serviceFindFirstArgs>(args?: SelectSubset<T, serviceFindFirstArgs<ExtArgs>>): Prisma__serviceClient<$Result.GetResult<Prisma.$servicePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+    findFirst<T extends clusterConfigFindFirstArgs>(args?: SelectSubset<T, clusterConfigFindFirstArgs<ExtArgs>>): Prisma__clusterConfigClient<$Result.GetResult<Prisma.$clusterConfigPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
 
     /**
-     * Find the first Service that matches the filter or
+     * Find the first ClusterConfig that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {serviceFindFirstOrThrowArgs} args - Arguments to find a Service
+     * @param {clusterConfigFindFirstOrThrowArgs} args - Arguments to find a ClusterConfig
      * @example
-     * // Get one Service
-     * const service = await prisma.service.findFirstOrThrow({
+     * // Get one ClusterConfig
+     * const clusterConfig = await prisma.clusterConfig.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends serviceFindFirstOrThrowArgs>(args?: SelectSubset<T, serviceFindFirstOrThrowArgs<ExtArgs>>): Prisma__serviceClient<$Result.GetResult<Prisma.$servicePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+    findFirstOrThrow<T extends clusterConfigFindFirstOrThrowArgs>(args?: SelectSubset<T, clusterConfigFindFirstOrThrowArgs<ExtArgs>>): Prisma__clusterConfigClient<$Result.GetResult<Prisma.$clusterConfigPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
 
     /**
-     * Find zero or more Services that matches the filter.
+     * Find zero or more ClusterConfigs that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {serviceFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {clusterConfigFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all Services
-     * const services = await prisma.service.findMany()
+     * // Get all ClusterConfigs
+     * const clusterConfigs = await prisma.clusterConfig.findMany()
      * 
-     * // Get first 10 Services
-     * const services = await prisma.service.findMany({ take: 10 })
+     * // Get first 10 ClusterConfigs
+     * const clusterConfigs = await prisma.clusterConfig.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const serviceWithIdOnly = await prisma.service.findMany({ select: { id: true } })
+     * const clusterConfigWithIdOnly = await prisma.clusterConfig.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends serviceFindManyArgs>(args?: SelectSubset<T, serviceFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$servicePayload<ExtArgs>, T, "findMany">>
+    findMany<T extends clusterConfigFindManyArgs>(args?: SelectSubset<T, clusterConfigFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$clusterConfigPayload<ExtArgs>, T, "findMany">>
 
     /**
-     * Create a Service.
-     * @param {serviceCreateArgs} args - Arguments to create a Service.
+     * Create a ClusterConfig.
+     * @param {clusterConfigCreateArgs} args - Arguments to create a ClusterConfig.
      * @example
-     * // Create one Service
-     * const Service = await prisma.service.create({
+     * // Create one ClusterConfig
+     * const ClusterConfig = await prisma.clusterConfig.create({
      *   data: {
-     *     // ... data to create a Service
+     *     // ... data to create a ClusterConfig
      *   }
      * })
      * 
      */
-    create<T extends serviceCreateArgs>(args: SelectSubset<T, serviceCreateArgs<ExtArgs>>): Prisma__serviceClient<$Result.GetResult<Prisma.$servicePayload<ExtArgs>, T, "create">, never, ExtArgs>
+    create<T extends clusterConfigCreateArgs>(args: SelectSubset<T, clusterConfigCreateArgs<ExtArgs>>): Prisma__clusterConfigClient<$Result.GetResult<Prisma.$clusterConfigPayload<ExtArgs>, T, "create">, never, ExtArgs>
 
     /**
-     * Create many Services.
-     * @param {serviceCreateManyArgs} args - Arguments to create many Services.
+     * Create many ClusterConfigs.
+     * @param {clusterConfigCreateManyArgs} args - Arguments to create many ClusterConfigs.
      * @example
-     * // Create many Services
-     * const service = await prisma.service.createMany({
+     * // Create many ClusterConfigs
+     * const clusterConfig = await prisma.clusterConfig.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends serviceCreateManyArgs>(args?: SelectSubset<T, serviceCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends clusterConfigCreateManyArgs>(args?: SelectSubset<T, clusterConfigCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many Services and returns the data saved in the database.
-     * @param {serviceCreateManyAndReturnArgs} args - Arguments to create many Services.
+     * Create many ClusterConfigs and returns the data saved in the database.
+     * @param {clusterConfigCreateManyAndReturnArgs} args - Arguments to create many ClusterConfigs.
      * @example
-     * // Create many Services
-     * const service = await prisma.service.createManyAndReturn({
+     * // Create many ClusterConfigs
+     * const clusterConfig = await prisma.clusterConfig.createManyAndReturn({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      * 
-     * // Create many Services and only return the `id`
-     * const serviceWithIdOnly = await prisma.service.createManyAndReturn({ 
+     * // Create many ClusterConfigs and only return the `id`
+     * const clusterConfigWithIdOnly = await prisma.clusterConfig.createManyAndReturn({ 
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -2391,28 +2764,28 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends serviceCreateManyAndReturnArgs>(args?: SelectSubset<T, serviceCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$servicePayload<ExtArgs>, T, "createManyAndReturn">>
+    createManyAndReturn<T extends clusterConfigCreateManyAndReturnArgs>(args?: SelectSubset<T, clusterConfigCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$clusterConfigPayload<ExtArgs>, T, "createManyAndReturn">>
 
     /**
-     * Delete a Service.
-     * @param {serviceDeleteArgs} args - Arguments to delete one Service.
+     * Delete a ClusterConfig.
+     * @param {clusterConfigDeleteArgs} args - Arguments to delete one ClusterConfig.
      * @example
-     * // Delete one Service
-     * const Service = await prisma.service.delete({
+     * // Delete one ClusterConfig
+     * const ClusterConfig = await prisma.clusterConfig.delete({
      *   where: {
-     *     // ... filter to delete one Service
+     *     // ... filter to delete one ClusterConfig
      *   }
      * })
      * 
      */
-    delete<T extends serviceDeleteArgs>(args: SelectSubset<T, serviceDeleteArgs<ExtArgs>>): Prisma__serviceClient<$Result.GetResult<Prisma.$servicePayload<ExtArgs>, T, "delete">, never, ExtArgs>
+    delete<T extends clusterConfigDeleteArgs>(args: SelectSubset<T, clusterConfigDeleteArgs<ExtArgs>>): Prisma__clusterConfigClient<$Result.GetResult<Prisma.$clusterConfigPayload<ExtArgs>, T, "delete">, never, ExtArgs>
 
     /**
-     * Update one Service.
-     * @param {serviceUpdateArgs} args - Arguments to update one Service.
+     * Update one ClusterConfig.
+     * @param {clusterConfigUpdateArgs} args - Arguments to update one ClusterConfig.
      * @example
-     * // Update one Service
-     * const service = await prisma.service.update({
+     * // Update one ClusterConfig
+     * const clusterConfig = await prisma.clusterConfig.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -2422,30 +2795,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends serviceUpdateArgs>(args: SelectSubset<T, serviceUpdateArgs<ExtArgs>>): Prisma__serviceClient<$Result.GetResult<Prisma.$servicePayload<ExtArgs>, T, "update">, never, ExtArgs>
+    update<T extends clusterConfigUpdateArgs>(args: SelectSubset<T, clusterConfigUpdateArgs<ExtArgs>>): Prisma__clusterConfigClient<$Result.GetResult<Prisma.$clusterConfigPayload<ExtArgs>, T, "update">, never, ExtArgs>
 
     /**
-     * Delete zero or more Services.
-     * @param {serviceDeleteManyArgs} args - Arguments to filter Services to delete.
+     * Delete zero or more ClusterConfigs.
+     * @param {clusterConfigDeleteManyArgs} args - Arguments to filter ClusterConfigs to delete.
      * @example
-     * // Delete a few Services
-     * const { count } = await prisma.service.deleteMany({
+     * // Delete a few ClusterConfigs
+     * const { count } = await prisma.clusterConfig.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends serviceDeleteManyArgs>(args?: SelectSubset<T, serviceDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends clusterConfigDeleteManyArgs>(args?: SelectSubset<T, clusterConfigDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more Services.
+     * Update zero or more ClusterConfigs.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {serviceUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {clusterConfigUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many Services
-     * const service = await prisma.service.updateMany({
+     * // Update many ClusterConfigs
+     * const clusterConfig = await prisma.clusterConfig.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -2455,56 +2828,56 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends serviceUpdateManyArgs>(args: SelectSubset<T, serviceUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends clusterConfigUpdateManyArgs>(args: SelectSubset<T, clusterConfigUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create or update one Service.
-     * @param {serviceUpsertArgs} args - Arguments to update or create a Service.
+     * Create or update one ClusterConfig.
+     * @param {clusterConfigUpsertArgs} args - Arguments to update or create a ClusterConfig.
      * @example
-     * // Update or create a Service
-     * const service = await prisma.service.upsert({
+     * // Update or create a ClusterConfig
+     * const clusterConfig = await prisma.clusterConfig.upsert({
      *   create: {
-     *     // ... data to create a Service
+     *     // ... data to create a ClusterConfig
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the Service we want to update
+     *     // ... the filter for the ClusterConfig we want to update
      *   }
      * })
      */
-    upsert<T extends serviceUpsertArgs>(args: SelectSubset<T, serviceUpsertArgs<ExtArgs>>): Prisma__serviceClient<$Result.GetResult<Prisma.$servicePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+    upsert<T extends clusterConfigUpsertArgs>(args: SelectSubset<T, clusterConfigUpsertArgs<ExtArgs>>): Prisma__clusterConfigClient<$Result.GetResult<Prisma.$clusterConfigPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
 
 
     /**
-     * Count the number of Services.
+     * Count the number of ClusterConfigs.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {serviceCountArgs} args - Arguments to filter Services to count.
+     * @param {clusterConfigCountArgs} args - Arguments to filter ClusterConfigs to count.
      * @example
-     * // Count the number of Services
-     * const count = await prisma.service.count({
+     * // Count the number of ClusterConfigs
+     * const count = await prisma.clusterConfig.count({
      *   where: {
-     *     // ... the filter for the Services we want to count
+     *     // ... the filter for the ClusterConfigs we want to count
      *   }
      * })
     **/
-    count<T extends serviceCountArgs>(
-      args?: Subset<T, serviceCountArgs>,
+    count<T extends clusterConfigCountArgs>(
+      args?: Subset<T, clusterConfigCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], ServiceCountAggregateOutputType>
+          : GetScalarType<T['select'], ClusterConfigCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a Service.
+     * Allows you to perform aggregations operations on a ClusterConfig.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {ServiceAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {ClusterConfigAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -2524,13 +2897,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends ServiceAggregateArgs>(args: Subset<T, ServiceAggregateArgs>): Prisma.PrismaPromise<GetServiceAggregateType<T>>
+    aggregate<T extends ClusterConfigAggregateArgs>(args: Subset<T, ClusterConfigAggregateArgs>): Prisma.PrismaPromise<GetClusterConfigAggregateType<T>>
 
     /**
-     * Group by Service.
+     * Group by ClusterConfig.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {serviceGroupByArgs} args - Group by arguments.
+     * @param {clusterConfigGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -2545,14 +2918,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends serviceGroupByArgs,
+      T extends clusterConfigGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: serviceGroupByArgs['orderBy'] }
-        : { orderBy?: serviceGroupByArgs['orderBy'] },
+        ? { orderBy: clusterConfigGroupByArgs['orderBy'] }
+        : { orderBy?: clusterConfigGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -2601,21 +2974,22 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, serviceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetServiceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, clusterConfigGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetClusterConfigGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the service model
+   * Fields of the clusterConfig model
    */
-  readonly fields: serviceFieldRefs;
+  readonly fields: clusterConfigFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for service.
+   * The delegate class that acts as a "Promise-like" for clusterConfig.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__serviceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__clusterConfigClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    clusters<T extends clusterConfig$clustersArgs<ExtArgs> = {}>(args?: Subset<T, clusterConfig$clustersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$clusterPayload<ExtArgs>, T, "findMany"> | Null>
     project<T extends projectDefaultArgs<ExtArgs> = {}>(args?: Subset<T, projectDefaultArgs<ExtArgs>>): Prisma__projectClient<$Result.GetResult<Prisma.$projectPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -2643,345 +3017,2423 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the service model
+   * Fields of the clusterConfig model
    */ 
-  interface serviceFieldRefs {
-    readonly id: FieldRef<"service", 'String'>
-    readonly project_id: FieldRef<"service", 'String'>
-    readonly name: FieldRef<"service", 'String'>
-    readonly service_url: FieldRef<"service", 'String'>
-    readonly proxy_url: FieldRef<"service", 'String'>
-    readonly created_at: FieldRef<"service", 'DateTime'>
-    readonly updated_at: FieldRef<"service", 'DateTime'>
+  interface clusterConfigFieldRefs {
+    readonly id: FieldRef<"clusterConfig", 'String'>
+    readonly name: FieldRef<"clusterConfig", 'String'>
+    readonly config_slug: FieldRef<"clusterConfig", 'String'>
+    readonly project_id: FieldRef<"clusterConfig", 'String'>
+    readonly clusterMode: FieldRef<"clusterConfig", 'clusterMode'>
+    readonly load_balancing_type: FieldRef<"clusterConfig", 'loadBalancingType'>
+    readonly health_check_interval: FieldRef<"clusterConfig", 'Int'>
+    readonly failover_enabled: FieldRef<"clusterConfig", 'Boolean'>
+    readonly created_at: FieldRef<"clusterConfig", 'DateTime'>
+    readonly updated_at: FieldRef<"clusterConfig", 'DateTime'>
   }
     
 
   // Custom InputTypes
   /**
-   * service findUnique
+   * clusterConfig findUnique
    */
-  export type serviceFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type clusterConfigFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the service
+     * Select specific fields to fetch from the clusterConfig
      */
-    select?: serviceSelect<ExtArgs> | null
+    select?: clusterConfigSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: serviceInclude<ExtArgs> | null
+    include?: clusterConfigInclude<ExtArgs> | null
     /**
-     * Filter, which service to fetch.
+     * Filter, which clusterConfig to fetch.
      */
-    where: serviceWhereUniqueInput
+    where: clusterConfigWhereUniqueInput
   }
 
   /**
-   * service findUniqueOrThrow
+   * clusterConfig findUniqueOrThrow
    */
-  export type serviceFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type clusterConfigFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the service
+     * Select specific fields to fetch from the clusterConfig
      */
-    select?: serviceSelect<ExtArgs> | null
+    select?: clusterConfigSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: serviceInclude<ExtArgs> | null
+    include?: clusterConfigInclude<ExtArgs> | null
     /**
-     * Filter, which service to fetch.
+     * Filter, which clusterConfig to fetch.
      */
-    where: serviceWhereUniqueInput
+    where: clusterConfigWhereUniqueInput
   }
 
   /**
-   * service findFirst
+   * clusterConfig findFirst
    */
-  export type serviceFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type clusterConfigFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the service
+     * Select specific fields to fetch from the clusterConfig
      */
-    select?: serviceSelect<ExtArgs> | null
+    select?: clusterConfigSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: serviceInclude<ExtArgs> | null
+    include?: clusterConfigInclude<ExtArgs> | null
     /**
-     * Filter, which service to fetch.
+     * Filter, which clusterConfig to fetch.
      */
-    where?: serviceWhereInput
+    where?: clusterConfigWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of services to fetch.
+     * Determine the order of clusterConfigs to fetch.
      */
-    orderBy?: serviceOrderByWithRelationInput | serviceOrderByWithRelationInput[]
+    orderBy?: clusterConfigOrderByWithRelationInput | clusterConfigOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for services.
+     * Sets the position for searching for clusterConfigs.
      */
-    cursor?: serviceWhereUniqueInput
+    cursor?: clusterConfigWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` services from the position of the cursor.
+     * Take `±n` clusterConfigs from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` services.
+     * Skip the first `n` clusterConfigs.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of services.
+     * Filter by unique combinations of clusterConfigs.
      */
-    distinct?: ServiceScalarFieldEnum | ServiceScalarFieldEnum[]
+    distinct?: ClusterConfigScalarFieldEnum | ClusterConfigScalarFieldEnum[]
   }
 
   /**
-   * service findFirstOrThrow
+   * clusterConfig findFirstOrThrow
    */
-  export type serviceFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type clusterConfigFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the service
+     * Select specific fields to fetch from the clusterConfig
      */
-    select?: serviceSelect<ExtArgs> | null
+    select?: clusterConfigSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: serviceInclude<ExtArgs> | null
+    include?: clusterConfigInclude<ExtArgs> | null
     /**
-     * Filter, which service to fetch.
+     * Filter, which clusterConfig to fetch.
      */
-    where?: serviceWhereInput
+    where?: clusterConfigWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of services to fetch.
+     * Determine the order of clusterConfigs to fetch.
      */
-    orderBy?: serviceOrderByWithRelationInput | serviceOrderByWithRelationInput[]
+    orderBy?: clusterConfigOrderByWithRelationInput | clusterConfigOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for services.
+     * Sets the position for searching for clusterConfigs.
      */
-    cursor?: serviceWhereUniqueInput
+    cursor?: clusterConfigWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` services from the position of the cursor.
+     * Take `±n` clusterConfigs from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` services.
+     * Skip the first `n` clusterConfigs.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of services.
+     * Filter by unique combinations of clusterConfigs.
      */
-    distinct?: ServiceScalarFieldEnum | ServiceScalarFieldEnum[]
+    distinct?: ClusterConfigScalarFieldEnum | ClusterConfigScalarFieldEnum[]
   }
 
   /**
-   * service findMany
+   * clusterConfig findMany
    */
-  export type serviceFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type clusterConfigFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the service
+     * Select specific fields to fetch from the clusterConfig
      */
-    select?: serviceSelect<ExtArgs> | null
+    select?: clusterConfigSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: serviceInclude<ExtArgs> | null
+    include?: clusterConfigInclude<ExtArgs> | null
     /**
-     * Filter, which services to fetch.
+     * Filter, which clusterConfigs to fetch.
      */
-    where?: serviceWhereInput
+    where?: clusterConfigWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of services to fetch.
+     * Determine the order of clusterConfigs to fetch.
      */
-    orderBy?: serviceOrderByWithRelationInput | serviceOrderByWithRelationInput[]
+    orderBy?: clusterConfigOrderByWithRelationInput | clusterConfigOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing services.
+     * Sets the position for listing clusterConfigs.
      */
-    cursor?: serviceWhereUniqueInput
+    cursor?: clusterConfigWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` services from the position of the cursor.
+     * Take `±n` clusterConfigs from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` services.
+     * Skip the first `n` clusterConfigs.
      */
     skip?: number
-    distinct?: ServiceScalarFieldEnum | ServiceScalarFieldEnum[]
+    distinct?: ClusterConfigScalarFieldEnum | ClusterConfigScalarFieldEnum[]
   }
 
   /**
-   * service create
+   * clusterConfig create
    */
-  export type serviceCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type clusterConfigCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the service
+     * Select specific fields to fetch from the clusterConfig
      */
-    select?: serviceSelect<ExtArgs> | null
+    select?: clusterConfigSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: serviceInclude<ExtArgs> | null
+    include?: clusterConfigInclude<ExtArgs> | null
     /**
-     * The data needed to create a service.
+     * The data needed to create a clusterConfig.
      */
-    data: XOR<serviceCreateInput, serviceUncheckedCreateInput>
+    data: XOR<clusterConfigCreateInput, clusterConfigUncheckedCreateInput>
   }
 
   /**
-   * service createMany
+   * clusterConfig createMany
    */
-  export type serviceCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type clusterConfigCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many services.
+     * The data used to create many clusterConfigs.
      */
-    data: serviceCreateManyInput | serviceCreateManyInput[]
+    data: clusterConfigCreateManyInput | clusterConfigCreateManyInput[]
     skipDuplicates?: boolean
   }
 
   /**
-   * service createManyAndReturn
+   * clusterConfig createManyAndReturn
    */
-  export type serviceCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type clusterConfigCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the service
+     * Select specific fields to fetch from the clusterConfig
      */
-    select?: serviceSelectCreateManyAndReturn<ExtArgs> | null
+    select?: clusterConfigSelectCreateManyAndReturn<ExtArgs> | null
     /**
-     * The data used to create many services.
+     * The data used to create many clusterConfigs.
      */
-    data: serviceCreateManyInput | serviceCreateManyInput[]
+    data: clusterConfigCreateManyInput | clusterConfigCreateManyInput[]
     skipDuplicates?: boolean
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: serviceIncludeCreateManyAndReturn<ExtArgs> | null
+    include?: clusterConfigIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * service update
+   * clusterConfig update
    */
-  export type serviceUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type clusterConfigUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the service
+     * Select specific fields to fetch from the clusterConfig
      */
-    select?: serviceSelect<ExtArgs> | null
+    select?: clusterConfigSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: serviceInclude<ExtArgs> | null
+    include?: clusterConfigInclude<ExtArgs> | null
     /**
-     * The data needed to update a service.
+     * The data needed to update a clusterConfig.
      */
-    data: XOR<serviceUpdateInput, serviceUncheckedUpdateInput>
+    data: XOR<clusterConfigUpdateInput, clusterConfigUncheckedUpdateInput>
     /**
-     * Choose, which service to update.
+     * Choose, which clusterConfig to update.
      */
-    where: serviceWhereUniqueInput
+    where: clusterConfigWhereUniqueInput
   }
 
   /**
-   * service updateMany
+   * clusterConfig updateMany
    */
-  export type serviceUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type clusterConfigUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update services.
+     * The data used to update clusterConfigs.
      */
-    data: XOR<serviceUpdateManyMutationInput, serviceUncheckedUpdateManyInput>
+    data: XOR<clusterConfigUpdateManyMutationInput, clusterConfigUncheckedUpdateManyInput>
     /**
-     * Filter which services to update
+     * Filter which clusterConfigs to update
      */
-    where?: serviceWhereInput
+    where?: clusterConfigWhereInput
   }
 
   /**
-   * service upsert
+   * clusterConfig upsert
    */
-  export type serviceUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type clusterConfigUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the service
+     * Select specific fields to fetch from the clusterConfig
      */
-    select?: serviceSelect<ExtArgs> | null
+    select?: clusterConfigSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: serviceInclude<ExtArgs> | null
+    include?: clusterConfigInclude<ExtArgs> | null
     /**
-     * The filter to search for the service to update in case it exists.
+     * The filter to search for the clusterConfig to update in case it exists.
      */
-    where: serviceWhereUniqueInput
+    where: clusterConfigWhereUniqueInput
     /**
-     * In case the service found by the `where` argument doesn't exist, create a new service with this data.
+     * In case the clusterConfig found by the `where` argument doesn't exist, create a new clusterConfig with this data.
      */
-    create: XOR<serviceCreateInput, serviceUncheckedCreateInput>
+    create: XOR<clusterConfigCreateInput, clusterConfigUncheckedCreateInput>
     /**
-     * In case the service was found with the provided `where` argument, update it with this data.
+     * In case the clusterConfig was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<serviceUpdateInput, serviceUncheckedUpdateInput>
+    update: XOR<clusterConfigUpdateInput, clusterConfigUncheckedUpdateInput>
   }
 
   /**
-   * service delete
+   * clusterConfig delete
    */
-  export type serviceDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type clusterConfigDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the service
+     * Select specific fields to fetch from the clusterConfig
      */
-    select?: serviceSelect<ExtArgs> | null
+    select?: clusterConfigSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: serviceInclude<ExtArgs> | null
+    include?: clusterConfigInclude<ExtArgs> | null
     /**
-     * Filter which service to delete.
+     * Filter which clusterConfig to delete.
      */
-    where: serviceWhereUniqueInput
+    where: clusterConfigWhereUniqueInput
   }
 
   /**
-   * service deleteMany
+   * clusterConfig deleteMany
    */
-  export type serviceDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type clusterConfigDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which services to delete
+     * Filter which clusterConfigs to delete
      */
-    where?: serviceWhereInput
+    where?: clusterConfigWhereInput
   }
 
   /**
-   * service without action
+   * clusterConfig.clusters
    */
-  export type serviceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type clusterConfig$clustersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the service
+     * Select specific fields to fetch from the cluster
      */
-    select?: serviceSelect<ExtArgs> | null
+    select?: clusterSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: serviceInclude<ExtArgs> | null
+    include?: clusterInclude<ExtArgs> | null
+    where?: clusterWhereInput
+    orderBy?: clusterOrderByWithRelationInput | clusterOrderByWithRelationInput[]
+    cursor?: clusterWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ClusterScalarFieldEnum | ClusterScalarFieldEnum[]
+  }
+
+  /**
+   * clusterConfig without action
+   */
+  export type clusterConfigDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the clusterConfig
+     */
+    select?: clusterConfigSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: clusterConfigInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model cluster
+   */
+
+  export type AggregateCluster = {
+    _count: ClusterCountAggregateOutputType | null
+    _min: ClusterMinAggregateOutputType | null
+    _max: ClusterMaxAggregateOutputType | null
+  }
+
+  export type ClusterMinAggregateOutputType = {
+    id: string | null
+    project_id: string | null
+    name: string | null
+    description: string | null
+    cluster_slug: string | null
+    cluster_url: string | null
+    created_at: Date | null
+    updated_at: Date | null
+    config_id: string | null
+  }
+
+  export type ClusterMaxAggregateOutputType = {
+    id: string | null
+    project_id: string | null
+    name: string | null
+    description: string | null
+    cluster_slug: string | null
+    cluster_url: string | null
+    created_at: Date | null
+    updated_at: Date | null
+    config_id: string | null
+  }
+
+  export type ClusterCountAggregateOutputType = {
+    id: number
+    project_id: number
+    name: number
+    description: number
+    cluster_slug: number
+    cluster_url: number
+    created_at: number
+    updated_at: number
+    config_id: number
+    _all: number
+  }
+
+
+  export type ClusterMinAggregateInputType = {
+    id?: true
+    project_id?: true
+    name?: true
+    description?: true
+    cluster_slug?: true
+    cluster_url?: true
+    created_at?: true
+    updated_at?: true
+    config_id?: true
+  }
+
+  export type ClusterMaxAggregateInputType = {
+    id?: true
+    project_id?: true
+    name?: true
+    description?: true
+    cluster_slug?: true
+    cluster_url?: true
+    created_at?: true
+    updated_at?: true
+    config_id?: true
+  }
+
+  export type ClusterCountAggregateInputType = {
+    id?: true
+    project_id?: true
+    name?: true
+    description?: true
+    cluster_slug?: true
+    cluster_url?: true
+    created_at?: true
+    updated_at?: true
+    config_id?: true
+    _all?: true
+  }
+
+  export type ClusterAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which cluster to aggregate.
+     */
+    where?: clusterWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of clusters to fetch.
+     */
+    orderBy?: clusterOrderByWithRelationInput | clusterOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: clusterWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` clusters from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` clusters.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned clusters
+    **/
+    _count?: true | ClusterCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ClusterMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ClusterMaxAggregateInputType
+  }
+
+  export type GetClusterAggregateType<T extends ClusterAggregateArgs> = {
+        [P in keyof T & keyof AggregateCluster]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCluster[P]>
+      : GetScalarType<T[P], AggregateCluster[P]>
+  }
+
+
+
+
+  export type clusterGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: clusterWhereInput
+    orderBy?: clusterOrderByWithAggregationInput | clusterOrderByWithAggregationInput[]
+    by: ClusterScalarFieldEnum[] | ClusterScalarFieldEnum
+    having?: clusterScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ClusterCountAggregateInputType | true
+    _min?: ClusterMinAggregateInputType
+    _max?: ClusterMaxAggregateInputType
+  }
+
+  export type ClusterGroupByOutputType = {
+    id: string
+    project_id: string
+    name: string
+    description: string | null
+    cluster_slug: string
+    cluster_url: string
+    created_at: Date
+    updated_at: Date
+    config_id: string | null
+    _count: ClusterCountAggregateOutputType | null
+    _min: ClusterMinAggregateOutputType | null
+    _max: ClusterMaxAggregateOutputType | null
+  }
+
+  type GetClusterGroupByPayload<T extends clusterGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ClusterGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ClusterGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ClusterGroupByOutputType[P]>
+            : GetScalarType<T[P], ClusterGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type clusterSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    project_id?: boolean
+    name?: boolean
+    description?: boolean
+    cluster_slug?: boolean
+    cluster_url?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    config_id?: boolean
+    nodes?: boolean | cluster$nodesArgs<ExtArgs>
+    config?: boolean | cluster$configArgs<ExtArgs>
+    project?: boolean | projectDefaultArgs<ExtArgs>
+    _count?: boolean | ClusterCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["cluster"]>
+
+  export type clusterSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    project_id?: boolean
+    name?: boolean
+    description?: boolean
+    cluster_slug?: boolean
+    cluster_url?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    config_id?: boolean
+    config?: boolean | cluster$configArgs<ExtArgs>
+    project?: boolean | projectDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["cluster"]>
+
+  export type clusterSelectScalar = {
+    id?: boolean
+    project_id?: boolean
+    name?: boolean
+    description?: boolean
+    cluster_slug?: boolean
+    cluster_url?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    config_id?: boolean
+  }
+
+  export type clusterInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    nodes?: boolean | cluster$nodesArgs<ExtArgs>
+    config?: boolean | cluster$configArgs<ExtArgs>
+    project?: boolean | projectDefaultArgs<ExtArgs>
+    _count?: boolean | ClusterCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type clusterIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    config?: boolean | cluster$configArgs<ExtArgs>
+    project?: boolean | projectDefaultArgs<ExtArgs>
+  }
+
+  export type $clusterPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "cluster"
+    objects: {
+      nodes: Prisma.$serviceNodePayload<ExtArgs>[]
+      config: Prisma.$clusterConfigPayload<ExtArgs> | null
+      project: Prisma.$projectPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      project_id: string
+      name: string
+      description: string | null
+      cluster_slug: string
+      cluster_url: string
+      created_at: Date
+      updated_at: Date
+      config_id: string | null
+    }, ExtArgs["result"]["cluster"]>
+    composites: {}
+  }
+
+  type clusterGetPayload<S extends boolean | null | undefined | clusterDefaultArgs> = $Result.GetResult<Prisma.$clusterPayload, S>
+
+  type clusterCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<clusterFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: ClusterCountAggregateInputType | true
+    }
+
+  export interface clusterDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['cluster'], meta: { name: 'cluster' } }
+    /**
+     * Find zero or one Cluster that matches the filter.
+     * @param {clusterFindUniqueArgs} args - Arguments to find a Cluster
+     * @example
+     * // Get one Cluster
+     * const cluster = await prisma.cluster.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends clusterFindUniqueArgs>(args: SelectSubset<T, clusterFindUniqueArgs<ExtArgs>>): Prisma__clusterClient<$Result.GetResult<Prisma.$clusterPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one Cluster that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {clusterFindUniqueOrThrowArgs} args - Arguments to find a Cluster
+     * @example
+     * // Get one Cluster
+     * const cluster = await prisma.cluster.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends clusterFindUniqueOrThrowArgs>(args: SelectSubset<T, clusterFindUniqueOrThrowArgs<ExtArgs>>): Prisma__clusterClient<$Result.GetResult<Prisma.$clusterPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first Cluster that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {clusterFindFirstArgs} args - Arguments to find a Cluster
+     * @example
+     * // Get one Cluster
+     * const cluster = await prisma.cluster.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends clusterFindFirstArgs>(args?: SelectSubset<T, clusterFindFirstArgs<ExtArgs>>): Prisma__clusterClient<$Result.GetResult<Prisma.$clusterPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first Cluster that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {clusterFindFirstOrThrowArgs} args - Arguments to find a Cluster
+     * @example
+     * // Get one Cluster
+     * const cluster = await prisma.cluster.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends clusterFindFirstOrThrowArgs>(args?: SelectSubset<T, clusterFindFirstOrThrowArgs<ExtArgs>>): Prisma__clusterClient<$Result.GetResult<Prisma.$clusterPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more Clusters that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {clusterFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Clusters
+     * const clusters = await prisma.cluster.findMany()
+     * 
+     * // Get first 10 Clusters
+     * const clusters = await prisma.cluster.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const clusterWithIdOnly = await prisma.cluster.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends clusterFindManyArgs>(args?: SelectSubset<T, clusterFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$clusterPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a Cluster.
+     * @param {clusterCreateArgs} args - Arguments to create a Cluster.
+     * @example
+     * // Create one Cluster
+     * const Cluster = await prisma.cluster.create({
+     *   data: {
+     *     // ... data to create a Cluster
+     *   }
+     * })
+     * 
+     */
+    create<T extends clusterCreateArgs>(args: SelectSubset<T, clusterCreateArgs<ExtArgs>>): Prisma__clusterClient<$Result.GetResult<Prisma.$clusterPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many Clusters.
+     * @param {clusterCreateManyArgs} args - Arguments to create many Clusters.
+     * @example
+     * // Create many Clusters
+     * const cluster = await prisma.cluster.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends clusterCreateManyArgs>(args?: SelectSubset<T, clusterCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Clusters and returns the data saved in the database.
+     * @param {clusterCreateManyAndReturnArgs} args - Arguments to create many Clusters.
+     * @example
+     * // Create many Clusters
+     * const cluster = await prisma.cluster.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Clusters and only return the `id`
+     * const clusterWithIdOnly = await prisma.cluster.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends clusterCreateManyAndReturnArgs>(args?: SelectSubset<T, clusterCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$clusterPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a Cluster.
+     * @param {clusterDeleteArgs} args - Arguments to delete one Cluster.
+     * @example
+     * // Delete one Cluster
+     * const Cluster = await prisma.cluster.delete({
+     *   where: {
+     *     // ... filter to delete one Cluster
+     *   }
+     * })
+     * 
+     */
+    delete<T extends clusterDeleteArgs>(args: SelectSubset<T, clusterDeleteArgs<ExtArgs>>): Prisma__clusterClient<$Result.GetResult<Prisma.$clusterPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one Cluster.
+     * @param {clusterUpdateArgs} args - Arguments to update one Cluster.
+     * @example
+     * // Update one Cluster
+     * const cluster = await prisma.cluster.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends clusterUpdateArgs>(args: SelectSubset<T, clusterUpdateArgs<ExtArgs>>): Prisma__clusterClient<$Result.GetResult<Prisma.$clusterPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more Clusters.
+     * @param {clusterDeleteManyArgs} args - Arguments to filter Clusters to delete.
+     * @example
+     * // Delete a few Clusters
+     * const { count } = await prisma.cluster.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends clusterDeleteManyArgs>(args?: SelectSubset<T, clusterDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Clusters.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {clusterUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Clusters
+     * const cluster = await prisma.cluster.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends clusterUpdateManyArgs>(args: SelectSubset<T, clusterUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Cluster.
+     * @param {clusterUpsertArgs} args - Arguments to update or create a Cluster.
+     * @example
+     * // Update or create a Cluster
+     * const cluster = await prisma.cluster.upsert({
+     *   create: {
+     *     // ... data to create a Cluster
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Cluster we want to update
+     *   }
+     * })
+     */
+    upsert<T extends clusterUpsertArgs>(args: SelectSubset<T, clusterUpsertArgs<ExtArgs>>): Prisma__clusterClient<$Result.GetResult<Prisma.$clusterPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of Clusters.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {clusterCountArgs} args - Arguments to filter Clusters to count.
+     * @example
+     * // Count the number of Clusters
+     * const count = await prisma.cluster.count({
+     *   where: {
+     *     // ... the filter for the Clusters we want to count
+     *   }
+     * })
+    **/
+    count<T extends clusterCountArgs>(
+      args?: Subset<T, clusterCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ClusterCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Cluster.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClusterAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ClusterAggregateArgs>(args: Subset<T, ClusterAggregateArgs>): Prisma.PrismaPromise<GetClusterAggregateType<T>>
+
+    /**
+     * Group by Cluster.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {clusterGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends clusterGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: clusterGroupByArgs['orderBy'] }
+        : { orderBy?: clusterGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, clusterGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetClusterGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the cluster model
+   */
+  readonly fields: clusterFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for cluster.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__clusterClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    nodes<T extends cluster$nodesArgs<ExtArgs> = {}>(args?: Subset<T, cluster$nodesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$serviceNodePayload<ExtArgs>, T, "findMany"> | Null>
+    config<T extends cluster$configArgs<ExtArgs> = {}>(args?: Subset<T, cluster$configArgs<ExtArgs>>): Prisma__clusterConfigClient<$Result.GetResult<Prisma.$clusterConfigPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    project<T extends projectDefaultArgs<ExtArgs> = {}>(args?: Subset<T, projectDefaultArgs<ExtArgs>>): Prisma__projectClient<$Result.GetResult<Prisma.$projectPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the cluster model
+   */ 
+  interface clusterFieldRefs {
+    readonly id: FieldRef<"cluster", 'String'>
+    readonly project_id: FieldRef<"cluster", 'String'>
+    readonly name: FieldRef<"cluster", 'String'>
+    readonly description: FieldRef<"cluster", 'String'>
+    readonly cluster_slug: FieldRef<"cluster", 'String'>
+    readonly cluster_url: FieldRef<"cluster", 'String'>
+    readonly created_at: FieldRef<"cluster", 'DateTime'>
+    readonly updated_at: FieldRef<"cluster", 'DateTime'>
+    readonly config_id: FieldRef<"cluster", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * cluster findUnique
+   */
+  export type clusterFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cluster
+     */
+    select?: clusterSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: clusterInclude<ExtArgs> | null
+    /**
+     * Filter, which cluster to fetch.
+     */
+    where: clusterWhereUniqueInput
+  }
+
+  /**
+   * cluster findUniqueOrThrow
+   */
+  export type clusterFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cluster
+     */
+    select?: clusterSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: clusterInclude<ExtArgs> | null
+    /**
+     * Filter, which cluster to fetch.
+     */
+    where: clusterWhereUniqueInput
+  }
+
+  /**
+   * cluster findFirst
+   */
+  export type clusterFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cluster
+     */
+    select?: clusterSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: clusterInclude<ExtArgs> | null
+    /**
+     * Filter, which cluster to fetch.
+     */
+    where?: clusterWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of clusters to fetch.
+     */
+    orderBy?: clusterOrderByWithRelationInput | clusterOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for clusters.
+     */
+    cursor?: clusterWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` clusters from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` clusters.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of clusters.
+     */
+    distinct?: ClusterScalarFieldEnum | ClusterScalarFieldEnum[]
+  }
+
+  /**
+   * cluster findFirstOrThrow
+   */
+  export type clusterFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cluster
+     */
+    select?: clusterSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: clusterInclude<ExtArgs> | null
+    /**
+     * Filter, which cluster to fetch.
+     */
+    where?: clusterWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of clusters to fetch.
+     */
+    orderBy?: clusterOrderByWithRelationInput | clusterOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for clusters.
+     */
+    cursor?: clusterWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` clusters from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` clusters.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of clusters.
+     */
+    distinct?: ClusterScalarFieldEnum | ClusterScalarFieldEnum[]
+  }
+
+  /**
+   * cluster findMany
+   */
+  export type clusterFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cluster
+     */
+    select?: clusterSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: clusterInclude<ExtArgs> | null
+    /**
+     * Filter, which clusters to fetch.
+     */
+    where?: clusterWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of clusters to fetch.
+     */
+    orderBy?: clusterOrderByWithRelationInput | clusterOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing clusters.
+     */
+    cursor?: clusterWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` clusters from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` clusters.
+     */
+    skip?: number
+    distinct?: ClusterScalarFieldEnum | ClusterScalarFieldEnum[]
+  }
+
+  /**
+   * cluster create
+   */
+  export type clusterCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cluster
+     */
+    select?: clusterSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: clusterInclude<ExtArgs> | null
+    /**
+     * The data needed to create a cluster.
+     */
+    data: XOR<clusterCreateInput, clusterUncheckedCreateInput>
+  }
+
+  /**
+   * cluster createMany
+   */
+  export type clusterCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many clusters.
+     */
+    data: clusterCreateManyInput | clusterCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * cluster createManyAndReturn
+   */
+  export type clusterCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cluster
+     */
+    select?: clusterSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many clusters.
+     */
+    data: clusterCreateManyInput | clusterCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: clusterIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * cluster update
+   */
+  export type clusterUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cluster
+     */
+    select?: clusterSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: clusterInclude<ExtArgs> | null
+    /**
+     * The data needed to update a cluster.
+     */
+    data: XOR<clusterUpdateInput, clusterUncheckedUpdateInput>
+    /**
+     * Choose, which cluster to update.
+     */
+    where: clusterWhereUniqueInput
+  }
+
+  /**
+   * cluster updateMany
+   */
+  export type clusterUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update clusters.
+     */
+    data: XOR<clusterUpdateManyMutationInput, clusterUncheckedUpdateManyInput>
+    /**
+     * Filter which clusters to update
+     */
+    where?: clusterWhereInput
+  }
+
+  /**
+   * cluster upsert
+   */
+  export type clusterUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cluster
+     */
+    select?: clusterSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: clusterInclude<ExtArgs> | null
+    /**
+     * The filter to search for the cluster to update in case it exists.
+     */
+    where: clusterWhereUniqueInput
+    /**
+     * In case the cluster found by the `where` argument doesn't exist, create a new cluster with this data.
+     */
+    create: XOR<clusterCreateInput, clusterUncheckedCreateInput>
+    /**
+     * In case the cluster was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<clusterUpdateInput, clusterUncheckedUpdateInput>
+  }
+
+  /**
+   * cluster delete
+   */
+  export type clusterDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cluster
+     */
+    select?: clusterSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: clusterInclude<ExtArgs> | null
+    /**
+     * Filter which cluster to delete.
+     */
+    where: clusterWhereUniqueInput
+  }
+
+  /**
+   * cluster deleteMany
+   */
+  export type clusterDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which clusters to delete
+     */
+    where?: clusterWhereInput
+  }
+
+  /**
+   * cluster.nodes
+   */
+  export type cluster$nodesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the serviceNode
+     */
+    select?: serviceNodeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: serviceNodeInclude<ExtArgs> | null
+    where?: serviceNodeWhereInput
+    orderBy?: serviceNodeOrderByWithRelationInput | serviceNodeOrderByWithRelationInput[]
+    cursor?: serviceNodeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ServiceNodeScalarFieldEnum | ServiceNodeScalarFieldEnum[]
+  }
+
+  /**
+   * cluster.config
+   */
+  export type cluster$configArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the clusterConfig
+     */
+    select?: clusterConfigSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: clusterConfigInclude<ExtArgs> | null
+    where?: clusterConfigWhereInput
+  }
+
+  /**
+   * cluster without action
+   */
+  export type clusterDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the cluster
+     */
+    select?: clusterSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: clusterInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model serviceNode
+   */
+
+  export type AggregateServiceNode = {
+    _count: ServiceNodeCountAggregateOutputType | null
+    _avg: ServiceNodeAvgAggregateOutputType | null
+    _sum: ServiceNodeSumAggregateOutputType | null
+    _min: ServiceNodeMinAggregateOutputType | null
+    _max: ServiceNodeMaxAggregateOutputType | null
+  }
+
+  export type ServiceNodeAvgAggregateOutputType = {
+    weight: number | null
+  }
+
+  export type ServiceNodeSumAggregateOutputType = {
+    weight: number | null
+  }
+
+  export type ServiceNodeMinAggregateOutputType = {
+    id: string | null
+    proxy_url: string | null
+    description: string | null
+    cluster_id: string | null
+    is_healthy: boolean | null
+    is_primary: boolean | null
+    weight: number | null
+    created_at: Date | null
+    updated_at: Date | null
+    active: boolean | null
+  }
+
+  export type ServiceNodeMaxAggregateOutputType = {
+    id: string | null
+    proxy_url: string | null
+    description: string | null
+    cluster_id: string | null
+    is_healthy: boolean | null
+    is_primary: boolean | null
+    weight: number | null
+    created_at: Date | null
+    updated_at: Date | null
+    active: boolean | null
+  }
+
+  export type ServiceNodeCountAggregateOutputType = {
+    id: number
+    proxy_url: number
+    description: number
+    cluster_id: number
+    is_healthy: number
+    is_primary: number
+    weight: number
+    created_at: number
+    updated_at: number
+    active: number
+    _all: number
+  }
+
+
+  export type ServiceNodeAvgAggregateInputType = {
+    weight?: true
+  }
+
+  export type ServiceNodeSumAggregateInputType = {
+    weight?: true
+  }
+
+  export type ServiceNodeMinAggregateInputType = {
+    id?: true
+    proxy_url?: true
+    description?: true
+    cluster_id?: true
+    is_healthy?: true
+    is_primary?: true
+    weight?: true
+    created_at?: true
+    updated_at?: true
+    active?: true
+  }
+
+  export type ServiceNodeMaxAggregateInputType = {
+    id?: true
+    proxy_url?: true
+    description?: true
+    cluster_id?: true
+    is_healthy?: true
+    is_primary?: true
+    weight?: true
+    created_at?: true
+    updated_at?: true
+    active?: true
+  }
+
+  export type ServiceNodeCountAggregateInputType = {
+    id?: true
+    proxy_url?: true
+    description?: true
+    cluster_id?: true
+    is_healthy?: true
+    is_primary?: true
+    weight?: true
+    created_at?: true
+    updated_at?: true
+    active?: true
+    _all?: true
+  }
+
+  export type ServiceNodeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which serviceNode to aggregate.
+     */
+    where?: serviceNodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of serviceNodes to fetch.
+     */
+    orderBy?: serviceNodeOrderByWithRelationInput | serviceNodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: serviceNodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` serviceNodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` serviceNodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned serviceNodes
+    **/
+    _count?: true | ServiceNodeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ServiceNodeAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ServiceNodeSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ServiceNodeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ServiceNodeMaxAggregateInputType
+  }
+
+  export type GetServiceNodeAggregateType<T extends ServiceNodeAggregateArgs> = {
+        [P in keyof T & keyof AggregateServiceNode]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateServiceNode[P]>
+      : GetScalarType<T[P], AggregateServiceNode[P]>
+  }
+
+
+
+
+  export type serviceNodeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: serviceNodeWhereInput
+    orderBy?: serviceNodeOrderByWithAggregationInput | serviceNodeOrderByWithAggregationInput[]
+    by: ServiceNodeScalarFieldEnum[] | ServiceNodeScalarFieldEnum
+    having?: serviceNodeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ServiceNodeCountAggregateInputType | true
+    _avg?: ServiceNodeAvgAggregateInputType
+    _sum?: ServiceNodeSumAggregateInputType
+    _min?: ServiceNodeMinAggregateInputType
+    _max?: ServiceNodeMaxAggregateInputType
+  }
+
+  export type ServiceNodeGroupByOutputType = {
+    id: string
+    proxy_url: string
+    description: string | null
+    cluster_id: string
+    is_healthy: boolean
+    is_primary: boolean
+    weight: number | null
+    created_at: Date
+    updated_at: Date
+    active: boolean
+    _count: ServiceNodeCountAggregateOutputType | null
+    _avg: ServiceNodeAvgAggregateOutputType | null
+    _sum: ServiceNodeSumAggregateOutputType | null
+    _min: ServiceNodeMinAggregateOutputType | null
+    _max: ServiceNodeMaxAggregateOutputType | null
+  }
+
+  type GetServiceNodeGroupByPayload<T extends serviceNodeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ServiceNodeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ServiceNodeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ServiceNodeGroupByOutputType[P]>
+            : GetScalarType<T[P], ServiceNodeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type serviceNodeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    proxy_url?: boolean
+    description?: boolean
+    cluster_id?: boolean
+    is_healthy?: boolean
+    is_primary?: boolean
+    weight?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    active?: boolean
+    cluster?: boolean | clusterDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["serviceNode"]>
+
+  export type serviceNodeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    proxy_url?: boolean
+    description?: boolean
+    cluster_id?: boolean
+    is_healthy?: boolean
+    is_primary?: boolean
+    weight?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    active?: boolean
+    cluster?: boolean | clusterDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["serviceNode"]>
+
+  export type serviceNodeSelectScalar = {
+    id?: boolean
+    proxy_url?: boolean
+    description?: boolean
+    cluster_id?: boolean
+    is_healthy?: boolean
+    is_primary?: boolean
+    weight?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    active?: boolean
+  }
+
+  export type serviceNodeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    cluster?: boolean | clusterDefaultArgs<ExtArgs>
+  }
+  export type serviceNodeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    cluster?: boolean | clusterDefaultArgs<ExtArgs>
+  }
+
+  export type $serviceNodePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "serviceNode"
+    objects: {
+      cluster: Prisma.$clusterPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      proxy_url: string
+      description: string | null
+      cluster_id: string
+      is_healthy: boolean
+      is_primary: boolean
+      weight: number | null
+      created_at: Date
+      updated_at: Date
+      active: boolean
+    }, ExtArgs["result"]["serviceNode"]>
+    composites: {}
+  }
+
+  type serviceNodeGetPayload<S extends boolean | null | undefined | serviceNodeDefaultArgs> = $Result.GetResult<Prisma.$serviceNodePayload, S>
+
+  type serviceNodeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<serviceNodeFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: ServiceNodeCountAggregateInputType | true
+    }
+
+  export interface serviceNodeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['serviceNode'], meta: { name: 'serviceNode' } }
+    /**
+     * Find zero or one ServiceNode that matches the filter.
+     * @param {serviceNodeFindUniqueArgs} args - Arguments to find a ServiceNode
+     * @example
+     * // Get one ServiceNode
+     * const serviceNode = await prisma.serviceNode.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends serviceNodeFindUniqueArgs>(args: SelectSubset<T, serviceNodeFindUniqueArgs<ExtArgs>>): Prisma__serviceNodeClient<$Result.GetResult<Prisma.$serviceNodePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one ServiceNode that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {serviceNodeFindUniqueOrThrowArgs} args - Arguments to find a ServiceNode
+     * @example
+     * // Get one ServiceNode
+     * const serviceNode = await prisma.serviceNode.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends serviceNodeFindUniqueOrThrowArgs>(args: SelectSubset<T, serviceNodeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__serviceNodeClient<$Result.GetResult<Prisma.$serviceNodePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first ServiceNode that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {serviceNodeFindFirstArgs} args - Arguments to find a ServiceNode
+     * @example
+     * // Get one ServiceNode
+     * const serviceNode = await prisma.serviceNode.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends serviceNodeFindFirstArgs>(args?: SelectSubset<T, serviceNodeFindFirstArgs<ExtArgs>>): Prisma__serviceNodeClient<$Result.GetResult<Prisma.$serviceNodePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first ServiceNode that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {serviceNodeFindFirstOrThrowArgs} args - Arguments to find a ServiceNode
+     * @example
+     * // Get one ServiceNode
+     * const serviceNode = await prisma.serviceNode.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends serviceNodeFindFirstOrThrowArgs>(args?: SelectSubset<T, serviceNodeFindFirstOrThrowArgs<ExtArgs>>): Prisma__serviceNodeClient<$Result.GetResult<Prisma.$serviceNodePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more ServiceNodes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {serviceNodeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ServiceNodes
+     * const serviceNodes = await prisma.serviceNode.findMany()
+     * 
+     * // Get first 10 ServiceNodes
+     * const serviceNodes = await prisma.serviceNode.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const serviceNodeWithIdOnly = await prisma.serviceNode.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends serviceNodeFindManyArgs>(args?: SelectSubset<T, serviceNodeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$serviceNodePayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a ServiceNode.
+     * @param {serviceNodeCreateArgs} args - Arguments to create a ServiceNode.
+     * @example
+     * // Create one ServiceNode
+     * const ServiceNode = await prisma.serviceNode.create({
+     *   data: {
+     *     // ... data to create a ServiceNode
+     *   }
+     * })
+     * 
+     */
+    create<T extends serviceNodeCreateArgs>(args: SelectSubset<T, serviceNodeCreateArgs<ExtArgs>>): Prisma__serviceNodeClient<$Result.GetResult<Prisma.$serviceNodePayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many ServiceNodes.
+     * @param {serviceNodeCreateManyArgs} args - Arguments to create many ServiceNodes.
+     * @example
+     * // Create many ServiceNodes
+     * const serviceNode = await prisma.serviceNode.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends serviceNodeCreateManyArgs>(args?: SelectSubset<T, serviceNodeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ServiceNodes and returns the data saved in the database.
+     * @param {serviceNodeCreateManyAndReturnArgs} args - Arguments to create many ServiceNodes.
+     * @example
+     * // Create many ServiceNodes
+     * const serviceNode = await prisma.serviceNode.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ServiceNodes and only return the `id`
+     * const serviceNodeWithIdOnly = await prisma.serviceNode.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends serviceNodeCreateManyAndReturnArgs>(args?: SelectSubset<T, serviceNodeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$serviceNodePayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a ServiceNode.
+     * @param {serviceNodeDeleteArgs} args - Arguments to delete one ServiceNode.
+     * @example
+     * // Delete one ServiceNode
+     * const ServiceNode = await prisma.serviceNode.delete({
+     *   where: {
+     *     // ... filter to delete one ServiceNode
+     *   }
+     * })
+     * 
+     */
+    delete<T extends serviceNodeDeleteArgs>(args: SelectSubset<T, serviceNodeDeleteArgs<ExtArgs>>): Prisma__serviceNodeClient<$Result.GetResult<Prisma.$serviceNodePayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one ServiceNode.
+     * @param {serviceNodeUpdateArgs} args - Arguments to update one ServiceNode.
+     * @example
+     * // Update one ServiceNode
+     * const serviceNode = await prisma.serviceNode.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends serviceNodeUpdateArgs>(args: SelectSubset<T, serviceNodeUpdateArgs<ExtArgs>>): Prisma__serviceNodeClient<$Result.GetResult<Prisma.$serviceNodePayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more ServiceNodes.
+     * @param {serviceNodeDeleteManyArgs} args - Arguments to filter ServiceNodes to delete.
+     * @example
+     * // Delete a few ServiceNodes
+     * const { count } = await prisma.serviceNode.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends serviceNodeDeleteManyArgs>(args?: SelectSubset<T, serviceNodeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ServiceNodes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {serviceNodeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ServiceNodes
+     * const serviceNode = await prisma.serviceNode.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends serviceNodeUpdateManyArgs>(args: SelectSubset<T, serviceNodeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one ServiceNode.
+     * @param {serviceNodeUpsertArgs} args - Arguments to update or create a ServiceNode.
+     * @example
+     * // Update or create a ServiceNode
+     * const serviceNode = await prisma.serviceNode.upsert({
+     *   create: {
+     *     // ... data to create a ServiceNode
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ServiceNode we want to update
+     *   }
+     * })
+     */
+    upsert<T extends serviceNodeUpsertArgs>(args: SelectSubset<T, serviceNodeUpsertArgs<ExtArgs>>): Prisma__serviceNodeClient<$Result.GetResult<Prisma.$serviceNodePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of ServiceNodes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {serviceNodeCountArgs} args - Arguments to filter ServiceNodes to count.
+     * @example
+     * // Count the number of ServiceNodes
+     * const count = await prisma.serviceNode.count({
+     *   where: {
+     *     // ... the filter for the ServiceNodes we want to count
+     *   }
+     * })
+    **/
+    count<T extends serviceNodeCountArgs>(
+      args?: Subset<T, serviceNodeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ServiceNodeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ServiceNode.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ServiceNodeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ServiceNodeAggregateArgs>(args: Subset<T, ServiceNodeAggregateArgs>): Prisma.PrismaPromise<GetServiceNodeAggregateType<T>>
+
+    /**
+     * Group by ServiceNode.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {serviceNodeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends serviceNodeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: serviceNodeGroupByArgs['orderBy'] }
+        : { orderBy?: serviceNodeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, serviceNodeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetServiceNodeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the serviceNode model
+   */
+  readonly fields: serviceNodeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for serviceNode.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__serviceNodeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    cluster<T extends clusterDefaultArgs<ExtArgs> = {}>(args?: Subset<T, clusterDefaultArgs<ExtArgs>>): Prisma__clusterClient<$Result.GetResult<Prisma.$clusterPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the serviceNode model
+   */ 
+  interface serviceNodeFieldRefs {
+    readonly id: FieldRef<"serviceNode", 'String'>
+    readonly proxy_url: FieldRef<"serviceNode", 'String'>
+    readonly description: FieldRef<"serviceNode", 'String'>
+    readonly cluster_id: FieldRef<"serviceNode", 'String'>
+    readonly is_healthy: FieldRef<"serviceNode", 'Boolean'>
+    readonly is_primary: FieldRef<"serviceNode", 'Boolean'>
+    readonly weight: FieldRef<"serviceNode", 'Int'>
+    readonly created_at: FieldRef<"serviceNode", 'DateTime'>
+    readonly updated_at: FieldRef<"serviceNode", 'DateTime'>
+    readonly active: FieldRef<"serviceNode", 'Boolean'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * serviceNode findUnique
+   */
+  export type serviceNodeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the serviceNode
+     */
+    select?: serviceNodeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: serviceNodeInclude<ExtArgs> | null
+    /**
+     * Filter, which serviceNode to fetch.
+     */
+    where: serviceNodeWhereUniqueInput
+  }
+
+  /**
+   * serviceNode findUniqueOrThrow
+   */
+  export type serviceNodeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the serviceNode
+     */
+    select?: serviceNodeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: serviceNodeInclude<ExtArgs> | null
+    /**
+     * Filter, which serviceNode to fetch.
+     */
+    where: serviceNodeWhereUniqueInput
+  }
+
+  /**
+   * serviceNode findFirst
+   */
+  export type serviceNodeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the serviceNode
+     */
+    select?: serviceNodeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: serviceNodeInclude<ExtArgs> | null
+    /**
+     * Filter, which serviceNode to fetch.
+     */
+    where?: serviceNodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of serviceNodes to fetch.
+     */
+    orderBy?: serviceNodeOrderByWithRelationInput | serviceNodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for serviceNodes.
+     */
+    cursor?: serviceNodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` serviceNodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` serviceNodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of serviceNodes.
+     */
+    distinct?: ServiceNodeScalarFieldEnum | ServiceNodeScalarFieldEnum[]
+  }
+
+  /**
+   * serviceNode findFirstOrThrow
+   */
+  export type serviceNodeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the serviceNode
+     */
+    select?: serviceNodeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: serviceNodeInclude<ExtArgs> | null
+    /**
+     * Filter, which serviceNode to fetch.
+     */
+    where?: serviceNodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of serviceNodes to fetch.
+     */
+    orderBy?: serviceNodeOrderByWithRelationInput | serviceNodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for serviceNodes.
+     */
+    cursor?: serviceNodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` serviceNodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` serviceNodes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of serviceNodes.
+     */
+    distinct?: ServiceNodeScalarFieldEnum | ServiceNodeScalarFieldEnum[]
+  }
+
+  /**
+   * serviceNode findMany
+   */
+  export type serviceNodeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the serviceNode
+     */
+    select?: serviceNodeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: serviceNodeInclude<ExtArgs> | null
+    /**
+     * Filter, which serviceNodes to fetch.
+     */
+    where?: serviceNodeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of serviceNodes to fetch.
+     */
+    orderBy?: serviceNodeOrderByWithRelationInput | serviceNodeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing serviceNodes.
+     */
+    cursor?: serviceNodeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` serviceNodes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` serviceNodes.
+     */
+    skip?: number
+    distinct?: ServiceNodeScalarFieldEnum | ServiceNodeScalarFieldEnum[]
+  }
+
+  /**
+   * serviceNode create
+   */
+  export type serviceNodeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the serviceNode
+     */
+    select?: serviceNodeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: serviceNodeInclude<ExtArgs> | null
+    /**
+     * The data needed to create a serviceNode.
+     */
+    data: XOR<serviceNodeCreateInput, serviceNodeUncheckedCreateInput>
+  }
+
+  /**
+   * serviceNode createMany
+   */
+  export type serviceNodeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many serviceNodes.
+     */
+    data: serviceNodeCreateManyInput | serviceNodeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * serviceNode createManyAndReturn
+   */
+  export type serviceNodeCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the serviceNode
+     */
+    select?: serviceNodeSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many serviceNodes.
+     */
+    data: serviceNodeCreateManyInput | serviceNodeCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: serviceNodeIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * serviceNode update
+   */
+  export type serviceNodeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the serviceNode
+     */
+    select?: serviceNodeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: serviceNodeInclude<ExtArgs> | null
+    /**
+     * The data needed to update a serviceNode.
+     */
+    data: XOR<serviceNodeUpdateInput, serviceNodeUncheckedUpdateInput>
+    /**
+     * Choose, which serviceNode to update.
+     */
+    where: serviceNodeWhereUniqueInput
+  }
+
+  /**
+   * serviceNode updateMany
+   */
+  export type serviceNodeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update serviceNodes.
+     */
+    data: XOR<serviceNodeUpdateManyMutationInput, serviceNodeUncheckedUpdateManyInput>
+    /**
+     * Filter which serviceNodes to update
+     */
+    where?: serviceNodeWhereInput
+  }
+
+  /**
+   * serviceNode upsert
+   */
+  export type serviceNodeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the serviceNode
+     */
+    select?: serviceNodeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: serviceNodeInclude<ExtArgs> | null
+    /**
+     * The filter to search for the serviceNode to update in case it exists.
+     */
+    where: serviceNodeWhereUniqueInput
+    /**
+     * In case the serviceNode found by the `where` argument doesn't exist, create a new serviceNode with this data.
+     */
+    create: XOR<serviceNodeCreateInput, serviceNodeUncheckedCreateInput>
+    /**
+     * In case the serviceNode was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<serviceNodeUpdateInput, serviceNodeUncheckedUpdateInput>
+  }
+
+  /**
+   * serviceNode delete
+   */
+  export type serviceNodeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the serviceNode
+     */
+    select?: serviceNodeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: serviceNodeInclude<ExtArgs> | null
+    /**
+     * Filter which serviceNode to delete.
+     */
+    where: serviceNodeWhereUniqueInput
+  }
+
+  /**
+   * serviceNode deleteMany
+   */
+  export type serviceNodeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which serviceNodes to delete
+     */
+    where?: serviceNodeWhereInput
+  }
+
+  /**
+   * serviceNode without action
+   */
+  export type serviceNodeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the serviceNode
+     */
+    select?: serviceNodeSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: serviceNodeInclude<ExtArgs> | null
   }
 
 
@@ -3867,17 +6319,51 @@ export namespace Prisma {
   export type ProjectScalarFieldEnum = (typeof ProjectScalarFieldEnum)[keyof typeof ProjectScalarFieldEnum]
 
 
-  export const ServiceScalarFieldEnum: {
+  export const ClusterConfigScalarFieldEnum: {
     id: 'id',
-    project_id: 'project_id',
     name: 'name',
-    service_url: 'service_url',
-    proxy_url: 'proxy_url',
+    config_slug: 'config_slug',
+    project_id: 'project_id',
+    clusterMode: 'clusterMode',
+    load_balancing_type: 'load_balancing_type',
+    health_check_interval: 'health_check_interval',
+    failover_enabled: 'failover_enabled',
     created_at: 'created_at',
     updated_at: 'updated_at'
   };
 
-  export type ServiceScalarFieldEnum = (typeof ServiceScalarFieldEnum)[keyof typeof ServiceScalarFieldEnum]
+  export type ClusterConfigScalarFieldEnum = (typeof ClusterConfigScalarFieldEnum)[keyof typeof ClusterConfigScalarFieldEnum]
+
+
+  export const ClusterScalarFieldEnum: {
+    id: 'id',
+    project_id: 'project_id',
+    name: 'name',
+    description: 'description',
+    cluster_slug: 'cluster_slug',
+    cluster_url: 'cluster_url',
+    created_at: 'created_at',
+    updated_at: 'updated_at',
+    config_id: 'config_id'
+  };
+
+  export type ClusterScalarFieldEnum = (typeof ClusterScalarFieldEnum)[keyof typeof ClusterScalarFieldEnum]
+
+
+  export const ServiceNodeScalarFieldEnum: {
+    id: 'id',
+    proxy_url: 'proxy_url',
+    description: 'description',
+    cluster_id: 'cluster_id',
+    is_healthy: 'is_healthy',
+    is_primary: 'is_primary',
+    weight: 'weight',
+    created_at: 'created_at',
+    updated_at: 'updated_at',
+    active: 'active'
+  };
+
+  export type ServiceNodeScalarFieldEnum = (typeof ServiceNodeScalarFieldEnum)[keyof typeof ServiceNodeScalarFieldEnum]
 
 
   export const UserScalarFieldEnum: {
@@ -3903,6 +6389,14 @@ export namespace Prisma {
   };
 
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
   /**
@@ -3939,6 +6433,34 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'clusterMode'
+   */
+  export type EnumclusterModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'clusterMode'>
+    
+
+
+  /**
+   * Reference to a field of type 'clusterMode[]'
+   */
+  export type ListEnumclusterModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'clusterMode[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'loadBalancingType'
+   */
+  export type EnumloadBalancingTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'loadBalancingType'>
+    
+
+
+  /**
+   * Reference to a field of type 'loadBalancingType[]'
+   */
+  export type ListEnumloadBalancingTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'loadBalancingType[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -3949,6 +6471,27 @@ export namespace Prisma {
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float'
+   */
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float[]'
+   */
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
   /**
    * Deep Input Types
@@ -3962,24 +6505,26 @@ export namespace Prisma {
     id?: UuidFilter<"project"> | string
     owner_id?: StringFilter<"project"> | string
     name?: StringFilter<"project"> | string
-    description?: StringFilter<"project"> | string
+    description?: StringNullableFilter<"project"> | string | null
     slug?: StringFilter<"project"> | string
     base_url?: StringFilter<"project"> | string
     created_at?: DateTimeFilter<"project"> | Date | string
     updated_at?: DateTimeFilter<"project"> | Date | string
-    services?: ServiceListRelationFilter
+    clusters?: ClusterListRelationFilter
+    config?: ClusterConfigListRelationFilter
   }
 
   export type projectOrderByWithRelationInput = {
     id?: SortOrder
     owner_id?: SortOrder
     name?: SortOrder
-    description?: SortOrder
+    description?: SortOrderInput | SortOrder
     slug?: SortOrder
     base_url?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
-    services?: serviceOrderByRelationAggregateInput
+    clusters?: clusterOrderByRelationAggregateInput
+    config?: clusterConfigOrderByRelationAggregateInput
   }
 
   export type projectWhereUniqueInput = Prisma.AtLeast<{
@@ -3991,17 +6536,18 @@ export namespace Prisma {
     NOT?: projectWhereInput | projectWhereInput[]
     owner_id?: StringFilter<"project"> | string
     name?: StringFilter<"project"> | string
-    description?: StringFilter<"project"> | string
+    description?: StringNullableFilter<"project"> | string | null
     created_at?: DateTimeFilter<"project"> | Date | string
     updated_at?: DateTimeFilter<"project"> | Date | string
-    services?: ServiceListRelationFilter
+    clusters?: ClusterListRelationFilter
+    config?: ClusterConfigListRelationFilter
   }, "id" | "slug" | "base_url">
 
   export type projectOrderByWithAggregationInput = {
     id?: SortOrder
     owner_id?: SortOrder
     name?: SortOrder
-    description?: SortOrder
+    description?: SortOrderInput | SortOrder
     slug?: SortOrder
     base_url?: SortOrder
     created_at?: SortOrder
@@ -4018,76 +6564,259 @@ export namespace Prisma {
     id?: UuidWithAggregatesFilter<"project"> | string
     owner_id?: StringWithAggregatesFilter<"project"> | string
     name?: StringWithAggregatesFilter<"project"> | string
-    description?: StringWithAggregatesFilter<"project"> | string
+    description?: StringNullableWithAggregatesFilter<"project"> | string | null
     slug?: StringWithAggregatesFilter<"project"> | string
     base_url?: StringWithAggregatesFilter<"project"> | string
     created_at?: DateTimeWithAggregatesFilter<"project"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"project"> | Date | string
   }
 
-  export type serviceWhereInput = {
-    AND?: serviceWhereInput | serviceWhereInput[]
-    OR?: serviceWhereInput[]
-    NOT?: serviceWhereInput | serviceWhereInput[]
-    id?: UuidFilter<"service"> | string
-    project_id?: UuidFilter<"service"> | string
-    name?: StringFilter<"service"> | string
-    service_url?: StringFilter<"service"> | string
-    proxy_url?: StringFilter<"service"> | string
-    created_at?: DateTimeFilter<"service"> | Date | string
-    updated_at?: DateTimeFilter<"service"> | Date | string
+  export type clusterConfigWhereInput = {
+    AND?: clusterConfigWhereInput | clusterConfigWhereInput[]
+    OR?: clusterConfigWhereInput[]
+    NOT?: clusterConfigWhereInput | clusterConfigWhereInput[]
+    id?: UuidFilter<"clusterConfig"> | string
+    name?: StringFilter<"clusterConfig"> | string
+    config_slug?: StringFilter<"clusterConfig"> | string
+    project_id?: UuidFilter<"clusterConfig"> | string
+    clusterMode?: EnumclusterModeFilter<"clusterConfig"> | $Enums.clusterMode
+    load_balancing_type?: EnumloadBalancingTypeFilter<"clusterConfig"> | $Enums.loadBalancingType
+    health_check_interval?: IntFilter<"clusterConfig"> | number
+    failover_enabled?: BoolFilter<"clusterConfig"> | boolean
+    created_at?: DateTimeFilter<"clusterConfig"> | Date | string
+    updated_at?: DateTimeFilter<"clusterConfig"> | Date | string
+    clusters?: ClusterListRelationFilter
     project?: XOR<ProjectScalarRelationFilter, projectWhereInput>
   }
 
-  export type serviceOrderByWithRelationInput = {
+  export type clusterConfigOrderByWithRelationInput = {
     id?: SortOrder
-    project_id?: SortOrder
     name?: SortOrder
-    service_url?: SortOrder
-    proxy_url?: SortOrder
+    config_slug?: SortOrder
+    project_id?: SortOrder
+    clusterMode?: SortOrder
+    load_balancing_type?: SortOrder
+    health_check_interval?: SortOrder
+    failover_enabled?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    clusters?: clusterOrderByRelationAggregateInput
     project?: projectOrderByWithRelationInput
   }
 
-  export type serviceWhereUniqueInput = Prisma.AtLeast<{
+  export type clusterConfigWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    AND?: serviceWhereInput | serviceWhereInput[]
-    OR?: serviceWhereInput[]
-    NOT?: serviceWhereInput | serviceWhereInput[]
-    project_id?: UuidFilter<"service"> | string
-    name?: StringFilter<"service"> | string
-    service_url?: StringFilter<"service"> | string
-    proxy_url?: StringFilter<"service"> | string
-    created_at?: DateTimeFilter<"service"> | Date | string
-    updated_at?: DateTimeFilter<"service"> | Date | string
+    AND?: clusterConfigWhereInput | clusterConfigWhereInput[]
+    OR?: clusterConfigWhereInput[]
+    NOT?: clusterConfigWhereInput | clusterConfigWhereInput[]
+    name?: StringFilter<"clusterConfig"> | string
+    config_slug?: StringFilter<"clusterConfig"> | string
+    project_id?: UuidFilter<"clusterConfig"> | string
+    clusterMode?: EnumclusterModeFilter<"clusterConfig"> | $Enums.clusterMode
+    load_balancing_type?: EnumloadBalancingTypeFilter<"clusterConfig"> | $Enums.loadBalancingType
+    health_check_interval?: IntFilter<"clusterConfig"> | number
+    failover_enabled?: BoolFilter<"clusterConfig"> | boolean
+    created_at?: DateTimeFilter<"clusterConfig"> | Date | string
+    updated_at?: DateTimeFilter<"clusterConfig"> | Date | string
+    clusters?: ClusterListRelationFilter
     project?: XOR<ProjectScalarRelationFilter, projectWhereInput>
   }, "id">
 
-  export type serviceOrderByWithAggregationInput = {
+  export type clusterConfigOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    config_slug?: SortOrder
+    project_id?: SortOrder
+    clusterMode?: SortOrder
+    load_balancing_type?: SortOrder
+    health_check_interval?: SortOrder
+    failover_enabled?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: clusterConfigCountOrderByAggregateInput
+    _avg?: clusterConfigAvgOrderByAggregateInput
+    _max?: clusterConfigMaxOrderByAggregateInput
+    _min?: clusterConfigMinOrderByAggregateInput
+    _sum?: clusterConfigSumOrderByAggregateInput
+  }
+
+  export type clusterConfigScalarWhereWithAggregatesInput = {
+    AND?: clusterConfigScalarWhereWithAggregatesInput | clusterConfigScalarWhereWithAggregatesInput[]
+    OR?: clusterConfigScalarWhereWithAggregatesInput[]
+    NOT?: clusterConfigScalarWhereWithAggregatesInput | clusterConfigScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"clusterConfig"> | string
+    name?: StringWithAggregatesFilter<"clusterConfig"> | string
+    config_slug?: StringWithAggregatesFilter<"clusterConfig"> | string
+    project_id?: UuidWithAggregatesFilter<"clusterConfig"> | string
+    clusterMode?: EnumclusterModeWithAggregatesFilter<"clusterConfig"> | $Enums.clusterMode
+    load_balancing_type?: EnumloadBalancingTypeWithAggregatesFilter<"clusterConfig"> | $Enums.loadBalancingType
+    health_check_interval?: IntWithAggregatesFilter<"clusterConfig"> | number
+    failover_enabled?: BoolWithAggregatesFilter<"clusterConfig"> | boolean
+    created_at?: DateTimeWithAggregatesFilter<"clusterConfig"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"clusterConfig"> | Date | string
+  }
+
+  export type clusterWhereInput = {
+    AND?: clusterWhereInput | clusterWhereInput[]
+    OR?: clusterWhereInput[]
+    NOT?: clusterWhereInput | clusterWhereInput[]
+    id?: UuidFilter<"cluster"> | string
+    project_id?: UuidFilter<"cluster"> | string
+    name?: StringFilter<"cluster"> | string
+    description?: StringNullableFilter<"cluster"> | string | null
+    cluster_slug?: StringFilter<"cluster"> | string
+    cluster_url?: StringFilter<"cluster"> | string
+    created_at?: DateTimeFilter<"cluster"> | Date | string
+    updated_at?: DateTimeFilter<"cluster"> | Date | string
+    config_id?: UuidNullableFilter<"cluster"> | string | null
+    nodes?: ServiceNodeListRelationFilter
+    config?: XOR<ClusterConfigNullableScalarRelationFilter, clusterConfigWhereInput> | null
+    project?: XOR<ProjectScalarRelationFilter, projectWhereInput>
+  }
+
+  export type clusterOrderByWithRelationInput = {
     id?: SortOrder
     project_id?: SortOrder
     name?: SortOrder
-    service_url?: SortOrder
-    proxy_url?: SortOrder
+    description?: SortOrderInput | SortOrder
+    cluster_slug?: SortOrder
+    cluster_url?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
-    _count?: serviceCountOrderByAggregateInput
-    _max?: serviceMaxOrderByAggregateInput
-    _min?: serviceMinOrderByAggregateInput
+    config_id?: SortOrderInput | SortOrder
+    nodes?: serviceNodeOrderByRelationAggregateInput
+    config?: clusterConfigOrderByWithRelationInput
+    project?: projectOrderByWithRelationInput
   }
 
-  export type serviceScalarWhereWithAggregatesInput = {
-    AND?: serviceScalarWhereWithAggregatesInput | serviceScalarWhereWithAggregatesInput[]
-    OR?: serviceScalarWhereWithAggregatesInput[]
-    NOT?: serviceScalarWhereWithAggregatesInput | serviceScalarWhereWithAggregatesInput[]
-    id?: UuidWithAggregatesFilter<"service"> | string
-    project_id?: UuidWithAggregatesFilter<"service"> | string
-    name?: StringWithAggregatesFilter<"service"> | string
-    service_url?: StringWithAggregatesFilter<"service"> | string
-    proxy_url?: StringWithAggregatesFilter<"service"> | string
-    created_at?: DateTimeWithAggregatesFilter<"service"> | Date | string
-    updated_at?: DateTimeWithAggregatesFilter<"service"> | Date | string
+  export type clusterWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    cluster_url?: string
+    AND?: clusterWhereInput | clusterWhereInput[]
+    OR?: clusterWhereInput[]
+    NOT?: clusterWhereInput | clusterWhereInput[]
+    project_id?: UuidFilter<"cluster"> | string
+    name?: StringFilter<"cluster"> | string
+    description?: StringNullableFilter<"cluster"> | string | null
+    cluster_slug?: StringFilter<"cluster"> | string
+    created_at?: DateTimeFilter<"cluster"> | Date | string
+    updated_at?: DateTimeFilter<"cluster"> | Date | string
+    config_id?: UuidNullableFilter<"cluster"> | string | null
+    nodes?: ServiceNodeListRelationFilter
+    config?: XOR<ClusterConfigNullableScalarRelationFilter, clusterConfigWhereInput> | null
+    project?: XOR<ProjectScalarRelationFilter, projectWhereInput>
+  }, "id" | "cluster_url">
+
+  export type clusterOrderByWithAggregationInput = {
+    id?: SortOrder
+    project_id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    cluster_slug?: SortOrder
+    cluster_url?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    config_id?: SortOrderInput | SortOrder
+    _count?: clusterCountOrderByAggregateInput
+    _max?: clusterMaxOrderByAggregateInput
+    _min?: clusterMinOrderByAggregateInput
+  }
+
+  export type clusterScalarWhereWithAggregatesInput = {
+    AND?: clusterScalarWhereWithAggregatesInput | clusterScalarWhereWithAggregatesInput[]
+    OR?: clusterScalarWhereWithAggregatesInput[]
+    NOT?: clusterScalarWhereWithAggregatesInput | clusterScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"cluster"> | string
+    project_id?: UuidWithAggregatesFilter<"cluster"> | string
+    name?: StringWithAggregatesFilter<"cluster"> | string
+    description?: StringNullableWithAggregatesFilter<"cluster"> | string | null
+    cluster_slug?: StringWithAggregatesFilter<"cluster"> | string
+    cluster_url?: StringWithAggregatesFilter<"cluster"> | string
+    created_at?: DateTimeWithAggregatesFilter<"cluster"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"cluster"> | Date | string
+    config_id?: UuidNullableWithAggregatesFilter<"cluster"> | string | null
+  }
+
+  export type serviceNodeWhereInput = {
+    AND?: serviceNodeWhereInput | serviceNodeWhereInput[]
+    OR?: serviceNodeWhereInput[]
+    NOT?: serviceNodeWhereInput | serviceNodeWhereInput[]
+    id?: UuidFilter<"serviceNode"> | string
+    proxy_url?: StringFilter<"serviceNode"> | string
+    description?: StringNullableFilter<"serviceNode"> | string | null
+    cluster_id?: UuidFilter<"serviceNode"> | string
+    is_healthy?: BoolFilter<"serviceNode"> | boolean
+    is_primary?: BoolFilter<"serviceNode"> | boolean
+    weight?: IntNullableFilter<"serviceNode"> | number | null
+    created_at?: DateTimeFilter<"serviceNode"> | Date | string
+    updated_at?: DateTimeFilter<"serviceNode"> | Date | string
+    active?: BoolFilter<"serviceNode"> | boolean
+    cluster?: XOR<ClusterScalarRelationFilter, clusterWhereInput>
+  }
+
+  export type serviceNodeOrderByWithRelationInput = {
+    id?: SortOrder
+    proxy_url?: SortOrder
+    description?: SortOrderInput | SortOrder
+    cluster_id?: SortOrder
+    is_healthy?: SortOrder
+    is_primary?: SortOrder
+    weight?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    active?: SortOrder
+    cluster?: clusterOrderByWithRelationInput
+  }
+
+  export type serviceNodeWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: serviceNodeWhereInput | serviceNodeWhereInput[]
+    OR?: serviceNodeWhereInput[]
+    NOT?: serviceNodeWhereInput | serviceNodeWhereInput[]
+    proxy_url?: StringFilter<"serviceNode"> | string
+    description?: StringNullableFilter<"serviceNode"> | string | null
+    cluster_id?: UuidFilter<"serviceNode"> | string
+    is_healthy?: BoolFilter<"serviceNode"> | boolean
+    is_primary?: BoolFilter<"serviceNode"> | boolean
+    weight?: IntNullableFilter<"serviceNode"> | number | null
+    created_at?: DateTimeFilter<"serviceNode"> | Date | string
+    updated_at?: DateTimeFilter<"serviceNode"> | Date | string
+    active?: BoolFilter<"serviceNode"> | boolean
+    cluster?: XOR<ClusterScalarRelationFilter, clusterWhereInput>
+  }, "id">
+
+  export type serviceNodeOrderByWithAggregationInput = {
+    id?: SortOrder
+    proxy_url?: SortOrder
+    description?: SortOrderInput | SortOrder
+    cluster_id?: SortOrder
+    is_healthy?: SortOrder
+    is_primary?: SortOrder
+    weight?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    active?: SortOrder
+    _count?: serviceNodeCountOrderByAggregateInput
+    _avg?: serviceNodeAvgOrderByAggregateInput
+    _max?: serviceNodeMaxOrderByAggregateInput
+    _min?: serviceNodeMinOrderByAggregateInput
+    _sum?: serviceNodeSumOrderByAggregateInput
+  }
+
+  export type serviceNodeScalarWhereWithAggregatesInput = {
+    AND?: serviceNodeScalarWhereWithAggregatesInput | serviceNodeScalarWhereWithAggregatesInput[]
+    OR?: serviceNodeScalarWhereWithAggregatesInput[]
+    NOT?: serviceNodeScalarWhereWithAggregatesInput | serviceNodeScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"serviceNode"> | string
+    proxy_url?: StringWithAggregatesFilter<"serviceNode"> | string
+    description?: StringNullableWithAggregatesFilter<"serviceNode"> | string | null
+    cluster_id?: UuidWithAggregatesFilter<"serviceNode"> | string
+    is_healthy?: BoolWithAggregatesFilter<"serviceNode"> | boolean
+    is_primary?: BoolWithAggregatesFilter<"serviceNode"> | boolean
+    weight?: IntNullableWithAggregatesFilter<"serviceNode"> | number | null
+    created_at?: DateTimeWithAggregatesFilter<"serviceNode"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"serviceNode"> | Date | string
+    active?: BoolWithAggregatesFilter<"serviceNode"> | boolean
   }
 
   export type userWhereInput = {
@@ -4136,55 +6865,59 @@ export namespace Prisma {
     id?: string
     owner_id: string
     name: string
-    description: string
+    description?: string | null
     slug: string
     base_url: string
     created_at?: Date | string
     updated_at?: Date | string
-    services?: serviceCreateNestedManyWithoutProjectInput
+    clusters?: clusterCreateNestedManyWithoutProjectInput
+    config?: clusterConfigCreateNestedManyWithoutProjectInput
   }
 
   export type projectUncheckedCreateInput = {
     id?: string
     owner_id: string
     name: string
-    description: string
+    description?: string | null
     slug: string
     base_url: string
     created_at?: Date | string
     updated_at?: Date | string
-    services?: serviceUncheckedCreateNestedManyWithoutProjectInput
+    clusters?: clusterUncheckedCreateNestedManyWithoutProjectInput
+    config?: clusterConfigUncheckedCreateNestedManyWithoutProjectInput
   }
 
   export type projectUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     owner_id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: StringFieldUpdateOperationsInput | string
     base_url?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    services?: serviceUpdateManyWithoutProjectNestedInput
+    clusters?: clusterUpdateManyWithoutProjectNestedInput
+    config?: clusterConfigUpdateManyWithoutProjectNestedInput
   }
 
   export type projectUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     owner_id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: StringFieldUpdateOperationsInput | string
     base_url?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    services?: serviceUncheckedUpdateManyWithoutProjectNestedInput
+    clusters?: clusterUncheckedUpdateManyWithoutProjectNestedInput
+    config?: clusterConfigUncheckedUpdateManyWithoutProjectNestedInput
   }
 
   export type projectCreateManyInput = {
     id?: string
     owner_id: string
     name: string
-    description: string
+    description?: string | null
     slug: string
     base_url: string
     created_at?: Date | string
@@ -4195,7 +6928,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     owner_id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: StringFieldUpdateOperationsInput | string
     base_url?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -4206,80 +6939,281 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     owner_id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: StringFieldUpdateOperationsInput | string
     base_url?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type serviceCreateInput = {
+  export type clusterConfigCreateInput = {
     id?: string
     name: string
-    service_url: string
-    proxy_url: string
+    config_slug: string
+    clusterMode?: $Enums.clusterMode
+    load_balancing_type?: $Enums.loadBalancingType
+    health_check_interval?: number
+    failover_enabled?: boolean
     created_at?: Date | string
     updated_at?: Date | string
-    project: projectCreateNestedOneWithoutServicesInput
+    clusters?: clusterCreateNestedManyWithoutConfigInput
+    project: projectCreateNestedOneWithoutConfigInput
   }
 
-  export type serviceUncheckedCreateInput = {
+  export type clusterConfigUncheckedCreateInput = {
+    id?: string
+    name: string
+    config_slug: string
+    project_id: string
+    clusterMode?: $Enums.clusterMode
+    load_balancing_type?: $Enums.loadBalancingType
+    health_check_interval?: number
+    failover_enabled?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    clusters?: clusterUncheckedCreateNestedManyWithoutConfigInput
+  }
+
+  export type clusterConfigUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    config_slug?: StringFieldUpdateOperationsInput | string
+    clusterMode?: EnumclusterModeFieldUpdateOperationsInput | $Enums.clusterMode
+    load_balancing_type?: EnumloadBalancingTypeFieldUpdateOperationsInput | $Enums.loadBalancingType
+    health_check_interval?: IntFieldUpdateOperationsInput | number
+    failover_enabled?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    clusters?: clusterUpdateManyWithoutConfigNestedInput
+    project?: projectUpdateOneRequiredWithoutConfigNestedInput
+  }
+
+  export type clusterConfigUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    config_slug?: StringFieldUpdateOperationsInput | string
+    project_id?: StringFieldUpdateOperationsInput | string
+    clusterMode?: EnumclusterModeFieldUpdateOperationsInput | $Enums.clusterMode
+    load_balancing_type?: EnumloadBalancingTypeFieldUpdateOperationsInput | $Enums.loadBalancingType
+    health_check_interval?: IntFieldUpdateOperationsInput | number
+    failover_enabled?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    clusters?: clusterUncheckedUpdateManyWithoutConfigNestedInput
+  }
+
+  export type clusterConfigCreateManyInput = {
+    id?: string
+    name: string
+    config_slug: string
+    project_id: string
+    clusterMode?: $Enums.clusterMode
+    load_balancing_type?: $Enums.loadBalancingType
+    health_check_interval?: number
+    failover_enabled?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type clusterConfigUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    config_slug?: StringFieldUpdateOperationsInput | string
+    clusterMode?: EnumclusterModeFieldUpdateOperationsInput | $Enums.clusterMode
+    load_balancing_type?: EnumloadBalancingTypeFieldUpdateOperationsInput | $Enums.loadBalancingType
+    health_check_interval?: IntFieldUpdateOperationsInput | number
+    failover_enabled?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type clusterConfigUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    config_slug?: StringFieldUpdateOperationsInput | string
+    project_id?: StringFieldUpdateOperationsInput | string
+    clusterMode?: EnumclusterModeFieldUpdateOperationsInput | $Enums.clusterMode
+    load_balancing_type?: EnumloadBalancingTypeFieldUpdateOperationsInput | $Enums.loadBalancingType
+    health_check_interval?: IntFieldUpdateOperationsInput | number
+    failover_enabled?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type clusterCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    cluster_slug: string
+    cluster_url: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    nodes?: serviceNodeCreateNestedManyWithoutClusterInput
+    config?: clusterConfigCreateNestedOneWithoutClustersInput
+    project: projectCreateNestedOneWithoutClustersInput
+  }
+
+  export type clusterUncheckedCreateInput = {
     id?: string
     project_id: string
     name: string
-    service_url: string
-    proxy_url: string
+    description?: string | null
+    cluster_slug: string
+    cluster_url: string
     created_at?: Date | string
     updated_at?: Date | string
+    config_id?: string | null
+    nodes?: serviceNodeUncheckedCreateNestedManyWithoutClusterInput
   }
 
-  export type serviceUpdateInput = {
+  export type clusterUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    service_url?: StringFieldUpdateOperationsInput | string
-    proxy_url?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    cluster_slug?: StringFieldUpdateOperationsInput | string
+    cluster_url?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    project?: projectUpdateOneRequiredWithoutServicesNestedInput
+    nodes?: serviceNodeUpdateManyWithoutClusterNestedInput
+    config?: clusterConfigUpdateOneWithoutClustersNestedInput
+    project?: projectUpdateOneRequiredWithoutClustersNestedInput
   }
 
-  export type serviceUncheckedUpdateInput = {
+  export type clusterUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     project_id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    service_url?: StringFieldUpdateOperationsInput | string
-    proxy_url?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    cluster_slug?: StringFieldUpdateOperationsInput | string
+    cluster_url?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    config_id?: NullableStringFieldUpdateOperationsInput | string | null
+    nodes?: serviceNodeUncheckedUpdateManyWithoutClusterNestedInput
   }
 
-  export type serviceCreateManyInput = {
+  export type clusterCreateManyInput = {
     id?: string
     project_id: string
     name: string
-    service_url: string
-    proxy_url: string
+    description?: string | null
+    cluster_slug: string
+    cluster_url: string
     created_at?: Date | string
     updated_at?: Date | string
+    config_id?: string | null
   }
 
-  export type serviceUpdateManyMutationInput = {
+  export type clusterUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    service_url?: StringFieldUpdateOperationsInput | string
-    proxy_url?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    cluster_slug?: StringFieldUpdateOperationsInput | string
+    cluster_url?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type serviceUncheckedUpdateManyInput = {
+  export type clusterUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     project_id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    service_url?: StringFieldUpdateOperationsInput | string
-    proxy_url?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    cluster_slug?: StringFieldUpdateOperationsInput | string
+    cluster_url?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    config_id?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type serviceNodeCreateInput = {
+    id?: string
+    proxy_url: string
+    description?: string | null
+    is_healthy?: boolean
+    is_primary?: boolean
+    weight?: number | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    active?: boolean
+    cluster: clusterCreateNestedOneWithoutNodesInput
+  }
+
+  export type serviceNodeUncheckedCreateInput = {
+    id?: string
+    proxy_url: string
+    description?: string | null
+    cluster_id: string
+    is_healthy?: boolean
+    is_primary?: boolean
+    weight?: number | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    active?: boolean
+  }
+
+  export type serviceNodeUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    proxy_url?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    is_healthy?: BoolFieldUpdateOperationsInput | boolean
+    is_primary?: BoolFieldUpdateOperationsInput | boolean
+    weight?: NullableIntFieldUpdateOperationsInput | number | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    cluster?: clusterUpdateOneRequiredWithoutNodesNestedInput
+  }
+
+  export type serviceNodeUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    proxy_url?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    cluster_id?: StringFieldUpdateOperationsInput | string
+    is_healthy?: BoolFieldUpdateOperationsInput | boolean
+    is_primary?: BoolFieldUpdateOperationsInput | boolean
+    weight?: NullableIntFieldUpdateOperationsInput | number | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type serviceNodeCreateManyInput = {
+    id?: string
+    proxy_url: string
+    description?: string | null
+    cluster_id: string
+    is_healthy?: boolean
+    is_primary?: boolean
+    weight?: number | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    active?: boolean
+  }
+
+  export type serviceNodeUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    proxy_url?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    is_healthy?: BoolFieldUpdateOperationsInput | boolean
+    is_primary?: BoolFieldUpdateOperationsInput | boolean
+    weight?: NullableIntFieldUpdateOperationsInput | number | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type serviceNodeUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    proxy_url?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    cluster_id?: StringFieldUpdateOperationsInput | string
+    is_healthy?: BoolFieldUpdateOperationsInput | boolean
+    is_primary?: BoolFieldUpdateOperationsInput | boolean
+    weight?: NullableIntFieldUpdateOperationsInput | number | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type userCreateInput = {
@@ -4351,6 +7285,21 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -4362,13 +7311,28 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
-  export type ServiceListRelationFilter = {
-    every?: serviceWhereInput
-    some?: serviceWhereInput
-    none?: serviceWhereInput
+  export type ClusterListRelationFilter = {
+    every?: clusterWhereInput
+    some?: clusterWhereInput
+    none?: clusterWhereInput
   }
 
-  export type serviceOrderByRelationAggregateInput = {
+  export type ClusterConfigListRelationFilter = {
+    every?: clusterConfigWhereInput
+    some?: clusterConfigWhereInput
+    none?: clusterConfigWhereInput
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
+  export type clusterOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type clusterConfigOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -4438,6 +7402,24 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -4452,39 +7434,287 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type EnumclusterModeFilter<$PrismaModel = never> = {
+    equals?: $Enums.clusterMode | EnumclusterModeFieldRefInput<$PrismaModel>
+    in?: $Enums.clusterMode[] | ListEnumclusterModeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.clusterMode[] | ListEnumclusterModeFieldRefInput<$PrismaModel>
+    not?: NestedEnumclusterModeFilter<$PrismaModel> | $Enums.clusterMode
+  }
+
+  export type EnumloadBalancingTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.loadBalancingType | EnumloadBalancingTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.loadBalancingType[] | ListEnumloadBalancingTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.loadBalancingType[] | ListEnumloadBalancingTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumloadBalancingTypeFilter<$PrismaModel> | $Enums.loadBalancingType
+  }
+
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type ProjectScalarRelationFilter = {
     is?: projectWhereInput
     isNot?: projectWhereInput
   }
 
-  export type serviceCountOrderByAggregateInput = {
+  export type clusterConfigCountOrderByAggregateInput = {
     id?: SortOrder
-    project_id?: SortOrder
     name?: SortOrder
-    service_url?: SortOrder
-    proxy_url?: SortOrder
+    config_slug?: SortOrder
+    project_id?: SortOrder
+    clusterMode?: SortOrder
+    load_balancing_type?: SortOrder
+    health_check_interval?: SortOrder
+    failover_enabled?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
 
-  export type serviceMaxOrderByAggregateInput = {
+  export type clusterConfigAvgOrderByAggregateInput = {
+    health_check_interval?: SortOrder
+  }
+
+  export type clusterConfigMaxOrderByAggregateInput = {
     id?: SortOrder
-    project_id?: SortOrder
     name?: SortOrder
-    service_url?: SortOrder
-    proxy_url?: SortOrder
+    config_slug?: SortOrder
+    project_id?: SortOrder
+    clusterMode?: SortOrder
+    load_balancing_type?: SortOrder
+    health_check_interval?: SortOrder
+    failover_enabled?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
 
-  export type serviceMinOrderByAggregateInput = {
+  export type clusterConfigMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    config_slug?: SortOrder
+    project_id?: SortOrder
+    clusterMode?: SortOrder
+    load_balancing_type?: SortOrder
+    health_check_interval?: SortOrder
+    failover_enabled?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type clusterConfigSumOrderByAggregateInput = {
+    health_check_interval?: SortOrder
+  }
+
+  export type EnumclusterModeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.clusterMode | EnumclusterModeFieldRefInput<$PrismaModel>
+    in?: $Enums.clusterMode[] | ListEnumclusterModeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.clusterMode[] | ListEnumclusterModeFieldRefInput<$PrismaModel>
+    not?: NestedEnumclusterModeWithAggregatesFilter<$PrismaModel> | $Enums.clusterMode
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumclusterModeFilter<$PrismaModel>
+    _max?: NestedEnumclusterModeFilter<$PrismaModel>
+  }
+
+  export type EnumloadBalancingTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.loadBalancingType | EnumloadBalancingTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.loadBalancingType[] | ListEnumloadBalancingTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.loadBalancingType[] | ListEnumloadBalancingTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumloadBalancingTypeWithAggregatesFilter<$PrismaModel> | $Enums.loadBalancingType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumloadBalancingTypeFilter<$PrismaModel>
+    _max?: NestedEnumloadBalancingTypeFilter<$PrismaModel>
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type UuidNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedUuidNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type ServiceNodeListRelationFilter = {
+    every?: serviceNodeWhereInput
+    some?: serviceNodeWhereInput
+    none?: serviceNodeWhereInput
+  }
+
+  export type ClusterConfigNullableScalarRelationFilter = {
+    is?: clusterConfigWhereInput | null
+    isNot?: clusterConfigWhereInput | null
+  }
+
+  export type serviceNodeOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type clusterCountOrderByAggregateInput = {
     id?: SortOrder
     project_id?: SortOrder
     name?: SortOrder
-    service_url?: SortOrder
-    proxy_url?: SortOrder
+    description?: SortOrder
+    cluster_slug?: SortOrder
+    cluster_url?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    config_id?: SortOrder
+  }
+
+  export type clusterMaxOrderByAggregateInput = {
+    id?: SortOrder
+    project_id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    cluster_slug?: SortOrder
+    cluster_url?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    config_id?: SortOrder
+  }
+
+  export type clusterMinOrderByAggregateInput = {
+    id?: SortOrder
+    project_id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    cluster_slug?: SortOrder
+    cluster_url?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    config_id?: SortOrder
+  }
+
+  export type UuidNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedUuidNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type ClusterScalarRelationFilter = {
+    is?: clusterWhereInput
+    isNot?: clusterWhereInput
+  }
+
+  export type serviceNodeCountOrderByAggregateInput = {
+    id?: SortOrder
+    proxy_url?: SortOrder
+    description?: SortOrder
+    cluster_id?: SortOrder
+    is_healthy?: SortOrder
+    is_primary?: SortOrder
+    weight?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    active?: SortOrder
+  }
+
+  export type serviceNodeAvgOrderByAggregateInput = {
+    weight?: SortOrder
+  }
+
+  export type serviceNodeMaxOrderByAggregateInput = {
+    id?: SortOrder
+    proxy_url?: SortOrder
+    description?: SortOrder
+    cluster_id?: SortOrder
+    is_healthy?: SortOrder
+    is_primary?: SortOrder
+    weight?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    active?: SortOrder
+  }
+
+  export type serviceNodeMinOrderByAggregateInput = {
+    id?: SortOrder
+    proxy_url?: SortOrder
+    description?: SortOrder
+    cluster_id?: SortOrder
+    is_healthy?: SortOrder
+    is_primary?: SortOrder
+    weight?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    active?: SortOrder
+  }
+
+  export type serviceNodeSumOrderByAggregateInput = {
+    weight?: SortOrder
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type userCountOrderByAggregateInput = {
@@ -4505,68 +7735,270 @@ export namespace Prisma {
     password?: SortOrder
   }
 
-  export type serviceCreateNestedManyWithoutProjectInput = {
-    create?: XOR<serviceCreateWithoutProjectInput, serviceUncheckedCreateWithoutProjectInput> | serviceCreateWithoutProjectInput[] | serviceUncheckedCreateWithoutProjectInput[]
-    connectOrCreate?: serviceCreateOrConnectWithoutProjectInput | serviceCreateOrConnectWithoutProjectInput[]
-    createMany?: serviceCreateManyProjectInputEnvelope
-    connect?: serviceWhereUniqueInput | serviceWhereUniqueInput[]
+  export type clusterCreateNestedManyWithoutProjectInput = {
+    create?: XOR<clusterCreateWithoutProjectInput, clusterUncheckedCreateWithoutProjectInput> | clusterCreateWithoutProjectInput[] | clusterUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: clusterCreateOrConnectWithoutProjectInput | clusterCreateOrConnectWithoutProjectInput[]
+    createMany?: clusterCreateManyProjectInputEnvelope
+    connect?: clusterWhereUniqueInput | clusterWhereUniqueInput[]
   }
 
-  export type serviceUncheckedCreateNestedManyWithoutProjectInput = {
-    create?: XOR<serviceCreateWithoutProjectInput, serviceUncheckedCreateWithoutProjectInput> | serviceCreateWithoutProjectInput[] | serviceUncheckedCreateWithoutProjectInput[]
-    connectOrCreate?: serviceCreateOrConnectWithoutProjectInput | serviceCreateOrConnectWithoutProjectInput[]
-    createMany?: serviceCreateManyProjectInputEnvelope
-    connect?: serviceWhereUniqueInput | serviceWhereUniqueInput[]
+  export type clusterConfigCreateNestedManyWithoutProjectInput = {
+    create?: XOR<clusterConfigCreateWithoutProjectInput, clusterConfigUncheckedCreateWithoutProjectInput> | clusterConfigCreateWithoutProjectInput[] | clusterConfigUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: clusterConfigCreateOrConnectWithoutProjectInput | clusterConfigCreateOrConnectWithoutProjectInput[]
+    createMany?: clusterConfigCreateManyProjectInputEnvelope
+    connect?: clusterConfigWhereUniqueInput | clusterConfigWhereUniqueInput[]
+  }
+
+  export type clusterUncheckedCreateNestedManyWithoutProjectInput = {
+    create?: XOR<clusterCreateWithoutProjectInput, clusterUncheckedCreateWithoutProjectInput> | clusterCreateWithoutProjectInput[] | clusterUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: clusterCreateOrConnectWithoutProjectInput | clusterCreateOrConnectWithoutProjectInput[]
+    createMany?: clusterCreateManyProjectInputEnvelope
+    connect?: clusterWhereUniqueInput | clusterWhereUniqueInput[]
+  }
+
+  export type clusterConfigUncheckedCreateNestedManyWithoutProjectInput = {
+    create?: XOR<clusterConfigCreateWithoutProjectInput, clusterConfigUncheckedCreateWithoutProjectInput> | clusterConfigCreateWithoutProjectInput[] | clusterConfigUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: clusterConfigCreateOrConnectWithoutProjectInput | clusterConfigCreateOrConnectWithoutProjectInput[]
+    createMany?: clusterConfigCreateManyProjectInputEnvelope
+    connect?: clusterConfigWhereUniqueInput | clusterConfigWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
 
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
   }
 
-  export type serviceUpdateManyWithoutProjectNestedInput = {
-    create?: XOR<serviceCreateWithoutProjectInput, serviceUncheckedCreateWithoutProjectInput> | serviceCreateWithoutProjectInput[] | serviceUncheckedCreateWithoutProjectInput[]
-    connectOrCreate?: serviceCreateOrConnectWithoutProjectInput | serviceCreateOrConnectWithoutProjectInput[]
-    upsert?: serviceUpsertWithWhereUniqueWithoutProjectInput | serviceUpsertWithWhereUniqueWithoutProjectInput[]
-    createMany?: serviceCreateManyProjectInputEnvelope
-    set?: serviceWhereUniqueInput | serviceWhereUniqueInput[]
-    disconnect?: serviceWhereUniqueInput | serviceWhereUniqueInput[]
-    delete?: serviceWhereUniqueInput | serviceWhereUniqueInput[]
-    connect?: serviceWhereUniqueInput | serviceWhereUniqueInput[]
-    update?: serviceUpdateWithWhereUniqueWithoutProjectInput | serviceUpdateWithWhereUniqueWithoutProjectInput[]
-    updateMany?: serviceUpdateManyWithWhereWithoutProjectInput | serviceUpdateManyWithWhereWithoutProjectInput[]
-    deleteMany?: serviceScalarWhereInput | serviceScalarWhereInput[]
+  export type clusterUpdateManyWithoutProjectNestedInput = {
+    create?: XOR<clusterCreateWithoutProjectInput, clusterUncheckedCreateWithoutProjectInput> | clusterCreateWithoutProjectInput[] | clusterUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: clusterCreateOrConnectWithoutProjectInput | clusterCreateOrConnectWithoutProjectInput[]
+    upsert?: clusterUpsertWithWhereUniqueWithoutProjectInput | clusterUpsertWithWhereUniqueWithoutProjectInput[]
+    createMany?: clusterCreateManyProjectInputEnvelope
+    set?: clusterWhereUniqueInput | clusterWhereUniqueInput[]
+    disconnect?: clusterWhereUniqueInput | clusterWhereUniqueInput[]
+    delete?: clusterWhereUniqueInput | clusterWhereUniqueInput[]
+    connect?: clusterWhereUniqueInput | clusterWhereUniqueInput[]
+    update?: clusterUpdateWithWhereUniqueWithoutProjectInput | clusterUpdateWithWhereUniqueWithoutProjectInput[]
+    updateMany?: clusterUpdateManyWithWhereWithoutProjectInput | clusterUpdateManyWithWhereWithoutProjectInput[]
+    deleteMany?: clusterScalarWhereInput | clusterScalarWhereInput[]
   }
 
-  export type serviceUncheckedUpdateManyWithoutProjectNestedInput = {
-    create?: XOR<serviceCreateWithoutProjectInput, serviceUncheckedCreateWithoutProjectInput> | serviceCreateWithoutProjectInput[] | serviceUncheckedCreateWithoutProjectInput[]
-    connectOrCreate?: serviceCreateOrConnectWithoutProjectInput | serviceCreateOrConnectWithoutProjectInput[]
-    upsert?: serviceUpsertWithWhereUniqueWithoutProjectInput | serviceUpsertWithWhereUniqueWithoutProjectInput[]
-    createMany?: serviceCreateManyProjectInputEnvelope
-    set?: serviceWhereUniqueInput | serviceWhereUniqueInput[]
-    disconnect?: serviceWhereUniqueInput | serviceWhereUniqueInput[]
-    delete?: serviceWhereUniqueInput | serviceWhereUniqueInput[]
-    connect?: serviceWhereUniqueInput | serviceWhereUniqueInput[]
-    update?: serviceUpdateWithWhereUniqueWithoutProjectInput | serviceUpdateWithWhereUniqueWithoutProjectInput[]
-    updateMany?: serviceUpdateManyWithWhereWithoutProjectInput | serviceUpdateManyWithWhereWithoutProjectInput[]
-    deleteMany?: serviceScalarWhereInput | serviceScalarWhereInput[]
+  export type clusterConfigUpdateManyWithoutProjectNestedInput = {
+    create?: XOR<clusterConfigCreateWithoutProjectInput, clusterConfigUncheckedCreateWithoutProjectInput> | clusterConfigCreateWithoutProjectInput[] | clusterConfigUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: clusterConfigCreateOrConnectWithoutProjectInput | clusterConfigCreateOrConnectWithoutProjectInput[]
+    upsert?: clusterConfigUpsertWithWhereUniqueWithoutProjectInput | clusterConfigUpsertWithWhereUniqueWithoutProjectInput[]
+    createMany?: clusterConfigCreateManyProjectInputEnvelope
+    set?: clusterConfigWhereUniqueInput | clusterConfigWhereUniqueInput[]
+    disconnect?: clusterConfigWhereUniqueInput | clusterConfigWhereUniqueInput[]
+    delete?: clusterConfigWhereUniqueInput | clusterConfigWhereUniqueInput[]
+    connect?: clusterConfigWhereUniqueInput | clusterConfigWhereUniqueInput[]
+    update?: clusterConfigUpdateWithWhereUniqueWithoutProjectInput | clusterConfigUpdateWithWhereUniqueWithoutProjectInput[]
+    updateMany?: clusterConfigUpdateManyWithWhereWithoutProjectInput | clusterConfigUpdateManyWithWhereWithoutProjectInput[]
+    deleteMany?: clusterConfigScalarWhereInput | clusterConfigScalarWhereInput[]
   }
 
-  export type projectCreateNestedOneWithoutServicesInput = {
-    create?: XOR<projectCreateWithoutServicesInput, projectUncheckedCreateWithoutServicesInput>
-    connectOrCreate?: projectCreateOrConnectWithoutServicesInput
+  export type clusterUncheckedUpdateManyWithoutProjectNestedInput = {
+    create?: XOR<clusterCreateWithoutProjectInput, clusterUncheckedCreateWithoutProjectInput> | clusterCreateWithoutProjectInput[] | clusterUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: clusterCreateOrConnectWithoutProjectInput | clusterCreateOrConnectWithoutProjectInput[]
+    upsert?: clusterUpsertWithWhereUniqueWithoutProjectInput | clusterUpsertWithWhereUniqueWithoutProjectInput[]
+    createMany?: clusterCreateManyProjectInputEnvelope
+    set?: clusterWhereUniqueInput | clusterWhereUniqueInput[]
+    disconnect?: clusterWhereUniqueInput | clusterWhereUniqueInput[]
+    delete?: clusterWhereUniqueInput | clusterWhereUniqueInput[]
+    connect?: clusterWhereUniqueInput | clusterWhereUniqueInput[]
+    update?: clusterUpdateWithWhereUniqueWithoutProjectInput | clusterUpdateWithWhereUniqueWithoutProjectInput[]
+    updateMany?: clusterUpdateManyWithWhereWithoutProjectInput | clusterUpdateManyWithWhereWithoutProjectInput[]
+    deleteMany?: clusterScalarWhereInput | clusterScalarWhereInput[]
+  }
+
+  export type clusterConfigUncheckedUpdateManyWithoutProjectNestedInput = {
+    create?: XOR<clusterConfigCreateWithoutProjectInput, clusterConfigUncheckedCreateWithoutProjectInput> | clusterConfigCreateWithoutProjectInput[] | clusterConfigUncheckedCreateWithoutProjectInput[]
+    connectOrCreate?: clusterConfigCreateOrConnectWithoutProjectInput | clusterConfigCreateOrConnectWithoutProjectInput[]
+    upsert?: clusterConfigUpsertWithWhereUniqueWithoutProjectInput | clusterConfigUpsertWithWhereUniqueWithoutProjectInput[]
+    createMany?: clusterConfigCreateManyProjectInputEnvelope
+    set?: clusterConfigWhereUniqueInput | clusterConfigWhereUniqueInput[]
+    disconnect?: clusterConfigWhereUniqueInput | clusterConfigWhereUniqueInput[]
+    delete?: clusterConfigWhereUniqueInput | clusterConfigWhereUniqueInput[]
+    connect?: clusterConfigWhereUniqueInput | clusterConfigWhereUniqueInput[]
+    update?: clusterConfigUpdateWithWhereUniqueWithoutProjectInput | clusterConfigUpdateWithWhereUniqueWithoutProjectInput[]
+    updateMany?: clusterConfigUpdateManyWithWhereWithoutProjectInput | clusterConfigUpdateManyWithWhereWithoutProjectInput[]
+    deleteMany?: clusterConfigScalarWhereInput | clusterConfigScalarWhereInput[]
+  }
+
+  export type clusterCreateNestedManyWithoutConfigInput = {
+    create?: XOR<clusterCreateWithoutConfigInput, clusterUncheckedCreateWithoutConfigInput> | clusterCreateWithoutConfigInput[] | clusterUncheckedCreateWithoutConfigInput[]
+    connectOrCreate?: clusterCreateOrConnectWithoutConfigInput | clusterCreateOrConnectWithoutConfigInput[]
+    createMany?: clusterCreateManyConfigInputEnvelope
+    connect?: clusterWhereUniqueInput | clusterWhereUniqueInput[]
+  }
+
+  export type projectCreateNestedOneWithoutConfigInput = {
+    create?: XOR<projectCreateWithoutConfigInput, projectUncheckedCreateWithoutConfigInput>
+    connectOrCreate?: projectCreateOrConnectWithoutConfigInput
     connect?: projectWhereUniqueInput
   }
 
-  export type projectUpdateOneRequiredWithoutServicesNestedInput = {
-    create?: XOR<projectCreateWithoutServicesInput, projectUncheckedCreateWithoutServicesInput>
-    connectOrCreate?: projectCreateOrConnectWithoutServicesInput
-    upsert?: projectUpsertWithoutServicesInput
+  export type clusterUncheckedCreateNestedManyWithoutConfigInput = {
+    create?: XOR<clusterCreateWithoutConfigInput, clusterUncheckedCreateWithoutConfigInput> | clusterCreateWithoutConfigInput[] | clusterUncheckedCreateWithoutConfigInput[]
+    connectOrCreate?: clusterCreateOrConnectWithoutConfigInput | clusterCreateOrConnectWithoutConfigInput[]
+    createMany?: clusterCreateManyConfigInputEnvelope
+    connect?: clusterWhereUniqueInput | clusterWhereUniqueInput[]
+  }
+
+  export type EnumclusterModeFieldUpdateOperationsInput = {
+    set?: $Enums.clusterMode
+  }
+
+  export type EnumloadBalancingTypeFieldUpdateOperationsInput = {
+    set?: $Enums.loadBalancingType
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
+  export type clusterUpdateManyWithoutConfigNestedInput = {
+    create?: XOR<clusterCreateWithoutConfigInput, clusterUncheckedCreateWithoutConfigInput> | clusterCreateWithoutConfigInput[] | clusterUncheckedCreateWithoutConfigInput[]
+    connectOrCreate?: clusterCreateOrConnectWithoutConfigInput | clusterCreateOrConnectWithoutConfigInput[]
+    upsert?: clusterUpsertWithWhereUniqueWithoutConfigInput | clusterUpsertWithWhereUniqueWithoutConfigInput[]
+    createMany?: clusterCreateManyConfigInputEnvelope
+    set?: clusterWhereUniqueInput | clusterWhereUniqueInput[]
+    disconnect?: clusterWhereUniqueInput | clusterWhereUniqueInput[]
+    delete?: clusterWhereUniqueInput | clusterWhereUniqueInput[]
+    connect?: clusterWhereUniqueInput | clusterWhereUniqueInput[]
+    update?: clusterUpdateWithWhereUniqueWithoutConfigInput | clusterUpdateWithWhereUniqueWithoutConfigInput[]
+    updateMany?: clusterUpdateManyWithWhereWithoutConfigInput | clusterUpdateManyWithWhereWithoutConfigInput[]
+    deleteMany?: clusterScalarWhereInput | clusterScalarWhereInput[]
+  }
+
+  export type projectUpdateOneRequiredWithoutConfigNestedInput = {
+    create?: XOR<projectCreateWithoutConfigInput, projectUncheckedCreateWithoutConfigInput>
+    connectOrCreate?: projectCreateOrConnectWithoutConfigInput
+    upsert?: projectUpsertWithoutConfigInput
     connect?: projectWhereUniqueInput
-    update?: XOR<XOR<projectUpdateToOneWithWhereWithoutServicesInput, projectUpdateWithoutServicesInput>, projectUncheckedUpdateWithoutServicesInput>
+    update?: XOR<XOR<projectUpdateToOneWithWhereWithoutConfigInput, projectUpdateWithoutConfigInput>, projectUncheckedUpdateWithoutConfigInput>
+  }
+
+  export type clusterUncheckedUpdateManyWithoutConfigNestedInput = {
+    create?: XOR<clusterCreateWithoutConfigInput, clusterUncheckedCreateWithoutConfigInput> | clusterCreateWithoutConfigInput[] | clusterUncheckedCreateWithoutConfigInput[]
+    connectOrCreate?: clusterCreateOrConnectWithoutConfigInput | clusterCreateOrConnectWithoutConfigInput[]
+    upsert?: clusterUpsertWithWhereUniqueWithoutConfigInput | clusterUpsertWithWhereUniqueWithoutConfigInput[]
+    createMany?: clusterCreateManyConfigInputEnvelope
+    set?: clusterWhereUniqueInput | clusterWhereUniqueInput[]
+    disconnect?: clusterWhereUniqueInput | clusterWhereUniqueInput[]
+    delete?: clusterWhereUniqueInput | clusterWhereUniqueInput[]
+    connect?: clusterWhereUniqueInput | clusterWhereUniqueInput[]
+    update?: clusterUpdateWithWhereUniqueWithoutConfigInput | clusterUpdateWithWhereUniqueWithoutConfigInput[]
+    updateMany?: clusterUpdateManyWithWhereWithoutConfigInput | clusterUpdateManyWithWhereWithoutConfigInput[]
+    deleteMany?: clusterScalarWhereInput | clusterScalarWhereInput[]
+  }
+
+  export type serviceNodeCreateNestedManyWithoutClusterInput = {
+    create?: XOR<serviceNodeCreateWithoutClusterInput, serviceNodeUncheckedCreateWithoutClusterInput> | serviceNodeCreateWithoutClusterInput[] | serviceNodeUncheckedCreateWithoutClusterInput[]
+    connectOrCreate?: serviceNodeCreateOrConnectWithoutClusterInput | serviceNodeCreateOrConnectWithoutClusterInput[]
+    createMany?: serviceNodeCreateManyClusterInputEnvelope
+    connect?: serviceNodeWhereUniqueInput | serviceNodeWhereUniqueInput[]
+  }
+
+  export type clusterConfigCreateNestedOneWithoutClustersInput = {
+    create?: XOR<clusterConfigCreateWithoutClustersInput, clusterConfigUncheckedCreateWithoutClustersInput>
+    connectOrCreate?: clusterConfigCreateOrConnectWithoutClustersInput
+    connect?: clusterConfigWhereUniqueInput
+  }
+
+  export type projectCreateNestedOneWithoutClustersInput = {
+    create?: XOR<projectCreateWithoutClustersInput, projectUncheckedCreateWithoutClustersInput>
+    connectOrCreate?: projectCreateOrConnectWithoutClustersInput
+    connect?: projectWhereUniqueInput
+  }
+
+  export type serviceNodeUncheckedCreateNestedManyWithoutClusterInput = {
+    create?: XOR<serviceNodeCreateWithoutClusterInput, serviceNodeUncheckedCreateWithoutClusterInput> | serviceNodeCreateWithoutClusterInput[] | serviceNodeUncheckedCreateWithoutClusterInput[]
+    connectOrCreate?: serviceNodeCreateOrConnectWithoutClusterInput | serviceNodeCreateOrConnectWithoutClusterInput[]
+    createMany?: serviceNodeCreateManyClusterInputEnvelope
+    connect?: serviceNodeWhereUniqueInput | serviceNodeWhereUniqueInput[]
+  }
+
+  export type serviceNodeUpdateManyWithoutClusterNestedInput = {
+    create?: XOR<serviceNodeCreateWithoutClusterInput, serviceNodeUncheckedCreateWithoutClusterInput> | serviceNodeCreateWithoutClusterInput[] | serviceNodeUncheckedCreateWithoutClusterInput[]
+    connectOrCreate?: serviceNodeCreateOrConnectWithoutClusterInput | serviceNodeCreateOrConnectWithoutClusterInput[]
+    upsert?: serviceNodeUpsertWithWhereUniqueWithoutClusterInput | serviceNodeUpsertWithWhereUniqueWithoutClusterInput[]
+    createMany?: serviceNodeCreateManyClusterInputEnvelope
+    set?: serviceNodeWhereUniqueInput | serviceNodeWhereUniqueInput[]
+    disconnect?: serviceNodeWhereUniqueInput | serviceNodeWhereUniqueInput[]
+    delete?: serviceNodeWhereUniqueInput | serviceNodeWhereUniqueInput[]
+    connect?: serviceNodeWhereUniqueInput | serviceNodeWhereUniqueInput[]
+    update?: serviceNodeUpdateWithWhereUniqueWithoutClusterInput | serviceNodeUpdateWithWhereUniqueWithoutClusterInput[]
+    updateMany?: serviceNodeUpdateManyWithWhereWithoutClusterInput | serviceNodeUpdateManyWithWhereWithoutClusterInput[]
+    deleteMany?: serviceNodeScalarWhereInput | serviceNodeScalarWhereInput[]
+  }
+
+  export type clusterConfigUpdateOneWithoutClustersNestedInput = {
+    create?: XOR<clusterConfigCreateWithoutClustersInput, clusterConfigUncheckedCreateWithoutClustersInput>
+    connectOrCreate?: clusterConfigCreateOrConnectWithoutClustersInput
+    upsert?: clusterConfigUpsertWithoutClustersInput
+    disconnect?: clusterConfigWhereInput | boolean
+    delete?: clusterConfigWhereInput | boolean
+    connect?: clusterConfigWhereUniqueInput
+    update?: XOR<XOR<clusterConfigUpdateToOneWithWhereWithoutClustersInput, clusterConfigUpdateWithoutClustersInput>, clusterConfigUncheckedUpdateWithoutClustersInput>
+  }
+
+  export type projectUpdateOneRequiredWithoutClustersNestedInput = {
+    create?: XOR<projectCreateWithoutClustersInput, projectUncheckedCreateWithoutClustersInput>
+    connectOrCreate?: projectCreateOrConnectWithoutClustersInput
+    upsert?: projectUpsertWithoutClustersInput
+    connect?: projectWhereUniqueInput
+    update?: XOR<XOR<projectUpdateToOneWithWhereWithoutClustersInput, projectUpdateWithoutClustersInput>, projectUncheckedUpdateWithoutClustersInput>
+  }
+
+  export type serviceNodeUncheckedUpdateManyWithoutClusterNestedInput = {
+    create?: XOR<serviceNodeCreateWithoutClusterInput, serviceNodeUncheckedCreateWithoutClusterInput> | serviceNodeCreateWithoutClusterInput[] | serviceNodeUncheckedCreateWithoutClusterInput[]
+    connectOrCreate?: serviceNodeCreateOrConnectWithoutClusterInput | serviceNodeCreateOrConnectWithoutClusterInput[]
+    upsert?: serviceNodeUpsertWithWhereUniqueWithoutClusterInput | serviceNodeUpsertWithWhereUniqueWithoutClusterInput[]
+    createMany?: serviceNodeCreateManyClusterInputEnvelope
+    set?: serviceNodeWhereUniqueInput | serviceNodeWhereUniqueInput[]
+    disconnect?: serviceNodeWhereUniqueInput | serviceNodeWhereUniqueInput[]
+    delete?: serviceNodeWhereUniqueInput | serviceNodeWhereUniqueInput[]
+    connect?: serviceNodeWhereUniqueInput | serviceNodeWhereUniqueInput[]
+    update?: serviceNodeUpdateWithWhereUniqueWithoutClusterInput | serviceNodeUpdateWithWhereUniqueWithoutClusterInput[]
+    updateMany?: serviceNodeUpdateManyWithWhereWithoutClusterInput | serviceNodeUpdateManyWithWhereWithoutClusterInput[]
+    deleteMany?: serviceNodeScalarWhereInput | serviceNodeScalarWhereInput[]
+  }
+
+  export type clusterCreateNestedOneWithoutNodesInput = {
+    create?: XOR<clusterCreateWithoutNodesInput, clusterUncheckedCreateWithoutNodesInput>
+    connectOrCreate?: clusterCreateOrConnectWithoutNodesInput
+    connect?: clusterWhereUniqueInput
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type clusterUpdateOneRequiredWithoutNodesNestedInput = {
+    create?: XOR<clusterCreateWithoutNodesInput, clusterUncheckedCreateWithoutNodesInput>
+    connectOrCreate?: clusterCreateOrConnectWithoutNodesInput
+    upsert?: clusterUpsertWithoutNodesInput
+    connect?: clusterWhereUniqueInput
+    update?: XOR<XOR<clusterUpdateToOneWithWhereWithoutNodesInput, clusterUpdateWithoutNodesInput>, clusterUncheckedUpdateWithoutNodesInput>
   }
 
   export type NestedUuidFilter<$PrismaModel = never> = {
@@ -4592,6 +8024,20 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringFilter<$PrismaModel> | string
+  }
+
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type NestedDateTimeFilter<$PrismaModel = never> = {
@@ -4647,6 +8093,34 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -4661,157 +8135,829 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type serviceCreateWithoutProjectInput = {
+  export type NestedEnumclusterModeFilter<$PrismaModel = never> = {
+    equals?: $Enums.clusterMode | EnumclusterModeFieldRefInput<$PrismaModel>
+    in?: $Enums.clusterMode[] | ListEnumclusterModeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.clusterMode[] | ListEnumclusterModeFieldRefInput<$PrismaModel>
+    not?: NestedEnumclusterModeFilter<$PrismaModel> | $Enums.clusterMode
+  }
+
+  export type NestedEnumloadBalancingTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.loadBalancingType | EnumloadBalancingTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.loadBalancingType[] | ListEnumloadBalancingTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.loadBalancingType[] | ListEnumloadBalancingTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumloadBalancingTypeFilter<$PrismaModel> | $Enums.loadBalancingType
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedEnumclusterModeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.clusterMode | EnumclusterModeFieldRefInput<$PrismaModel>
+    in?: $Enums.clusterMode[] | ListEnumclusterModeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.clusterMode[] | ListEnumclusterModeFieldRefInput<$PrismaModel>
+    not?: NestedEnumclusterModeWithAggregatesFilter<$PrismaModel> | $Enums.clusterMode
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumclusterModeFilter<$PrismaModel>
+    _max?: NestedEnumclusterModeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumloadBalancingTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.loadBalancingType | EnumloadBalancingTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.loadBalancingType[] | ListEnumloadBalancingTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.loadBalancingType[] | ListEnumloadBalancingTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumloadBalancingTypeWithAggregatesFilter<$PrismaModel> | $Enums.loadBalancingType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumloadBalancingTypeFilter<$PrismaModel>
+    _max?: NestedEnumloadBalancingTypeFilter<$PrismaModel>
+  }
+
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type NestedUuidNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedUuidNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedUuidNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedUuidNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type clusterCreateWithoutProjectInput = {
     id?: string
     name: string
-    service_url: string
-    proxy_url: string
+    description?: string | null
+    cluster_slug: string
+    cluster_url: string
     created_at?: Date | string
     updated_at?: Date | string
+    nodes?: serviceNodeCreateNestedManyWithoutClusterInput
+    config?: clusterConfigCreateNestedOneWithoutClustersInput
   }
 
-  export type serviceUncheckedCreateWithoutProjectInput = {
+  export type clusterUncheckedCreateWithoutProjectInput = {
     id?: string
     name: string
-    service_url: string
-    proxy_url: string
+    description?: string | null
+    cluster_slug: string
+    cluster_url: string
     created_at?: Date | string
     updated_at?: Date | string
+    config_id?: string | null
+    nodes?: serviceNodeUncheckedCreateNestedManyWithoutClusterInput
   }
 
-  export type serviceCreateOrConnectWithoutProjectInput = {
-    where: serviceWhereUniqueInput
-    create: XOR<serviceCreateWithoutProjectInput, serviceUncheckedCreateWithoutProjectInput>
+  export type clusterCreateOrConnectWithoutProjectInput = {
+    where: clusterWhereUniqueInput
+    create: XOR<clusterCreateWithoutProjectInput, clusterUncheckedCreateWithoutProjectInput>
   }
 
-  export type serviceCreateManyProjectInputEnvelope = {
-    data: serviceCreateManyProjectInput | serviceCreateManyProjectInput[]
+  export type clusterCreateManyProjectInputEnvelope = {
+    data: clusterCreateManyProjectInput | clusterCreateManyProjectInput[]
     skipDuplicates?: boolean
   }
 
-  export type serviceUpsertWithWhereUniqueWithoutProjectInput = {
-    where: serviceWhereUniqueInput
-    update: XOR<serviceUpdateWithoutProjectInput, serviceUncheckedUpdateWithoutProjectInput>
-    create: XOR<serviceCreateWithoutProjectInput, serviceUncheckedCreateWithoutProjectInput>
+  export type clusterConfigCreateWithoutProjectInput = {
+    id?: string
+    name: string
+    config_slug: string
+    clusterMode?: $Enums.clusterMode
+    load_balancing_type?: $Enums.loadBalancingType
+    health_check_interval?: number
+    failover_enabled?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    clusters?: clusterCreateNestedManyWithoutConfigInput
   }
 
-  export type serviceUpdateWithWhereUniqueWithoutProjectInput = {
-    where: serviceWhereUniqueInput
-    data: XOR<serviceUpdateWithoutProjectInput, serviceUncheckedUpdateWithoutProjectInput>
+  export type clusterConfigUncheckedCreateWithoutProjectInput = {
+    id?: string
+    name: string
+    config_slug: string
+    clusterMode?: $Enums.clusterMode
+    load_balancing_type?: $Enums.loadBalancingType
+    health_check_interval?: number
+    failover_enabled?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    clusters?: clusterUncheckedCreateNestedManyWithoutConfigInput
   }
 
-  export type serviceUpdateManyWithWhereWithoutProjectInput = {
-    where: serviceScalarWhereInput
-    data: XOR<serviceUpdateManyMutationInput, serviceUncheckedUpdateManyWithoutProjectInput>
+  export type clusterConfigCreateOrConnectWithoutProjectInput = {
+    where: clusterConfigWhereUniqueInput
+    create: XOR<clusterConfigCreateWithoutProjectInput, clusterConfigUncheckedCreateWithoutProjectInput>
   }
 
-  export type serviceScalarWhereInput = {
-    AND?: serviceScalarWhereInput | serviceScalarWhereInput[]
-    OR?: serviceScalarWhereInput[]
-    NOT?: serviceScalarWhereInput | serviceScalarWhereInput[]
-    id?: UuidFilter<"service"> | string
-    project_id?: UuidFilter<"service"> | string
-    name?: StringFilter<"service"> | string
-    service_url?: StringFilter<"service"> | string
-    proxy_url?: StringFilter<"service"> | string
-    created_at?: DateTimeFilter<"service"> | Date | string
-    updated_at?: DateTimeFilter<"service"> | Date | string
+  export type clusterConfigCreateManyProjectInputEnvelope = {
+    data: clusterConfigCreateManyProjectInput | clusterConfigCreateManyProjectInput[]
+    skipDuplicates?: boolean
   }
 
-  export type projectCreateWithoutServicesInput = {
+  export type clusterUpsertWithWhereUniqueWithoutProjectInput = {
+    where: clusterWhereUniqueInput
+    update: XOR<clusterUpdateWithoutProjectInput, clusterUncheckedUpdateWithoutProjectInput>
+    create: XOR<clusterCreateWithoutProjectInput, clusterUncheckedCreateWithoutProjectInput>
+  }
+
+  export type clusterUpdateWithWhereUniqueWithoutProjectInput = {
+    where: clusterWhereUniqueInput
+    data: XOR<clusterUpdateWithoutProjectInput, clusterUncheckedUpdateWithoutProjectInput>
+  }
+
+  export type clusterUpdateManyWithWhereWithoutProjectInput = {
+    where: clusterScalarWhereInput
+    data: XOR<clusterUpdateManyMutationInput, clusterUncheckedUpdateManyWithoutProjectInput>
+  }
+
+  export type clusterScalarWhereInput = {
+    AND?: clusterScalarWhereInput | clusterScalarWhereInput[]
+    OR?: clusterScalarWhereInput[]
+    NOT?: clusterScalarWhereInput | clusterScalarWhereInput[]
+    id?: UuidFilter<"cluster"> | string
+    project_id?: UuidFilter<"cluster"> | string
+    name?: StringFilter<"cluster"> | string
+    description?: StringNullableFilter<"cluster"> | string | null
+    cluster_slug?: StringFilter<"cluster"> | string
+    cluster_url?: StringFilter<"cluster"> | string
+    created_at?: DateTimeFilter<"cluster"> | Date | string
+    updated_at?: DateTimeFilter<"cluster"> | Date | string
+    config_id?: UuidNullableFilter<"cluster"> | string | null
+  }
+
+  export type clusterConfigUpsertWithWhereUniqueWithoutProjectInput = {
+    where: clusterConfigWhereUniqueInput
+    update: XOR<clusterConfigUpdateWithoutProjectInput, clusterConfigUncheckedUpdateWithoutProjectInput>
+    create: XOR<clusterConfigCreateWithoutProjectInput, clusterConfigUncheckedCreateWithoutProjectInput>
+  }
+
+  export type clusterConfigUpdateWithWhereUniqueWithoutProjectInput = {
+    where: clusterConfigWhereUniqueInput
+    data: XOR<clusterConfigUpdateWithoutProjectInput, clusterConfigUncheckedUpdateWithoutProjectInput>
+  }
+
+  export type clusterConfigUpdateManyWithWhereWithoutProjectInput = {
+    where: clusterConfigScalarWhereInput
+    data: XOR<clusterConfigUpdateManyMutationInput, clusterConfigUncheckedUpdateManyWithoutProjectInput>
+  }
+
+  export type clusterConfigScalarWhereInput = {
+    AND?: clusterConfigScalarWhereInput | clusterConfigScalarWhereInput[]
+    OR?: clusterConfigScalarWhereInput[]
+    NOT?: clusterConfigScalarWhereInput | clusterConfigScalarWhereInput[]
+    id?: UuidFilter<"clusterConfig"> | string
+    name?: StringFilter<"clusterConfig"> | string
+    config_slug?: StringFilter<"clusterConfig"> | string
+    project_id?: UuidFilter<"clusterConfig"> | string
+    clusterMode?: EnumclusterModeFilter<"clusterConfig"> | $Enums.clusterMode
+    load_balancing_type?: EnumloadBalancingTypeFilter<"clusterConfig"> | $Enums.loadBalancingType
+    health_check_interval?: IntFilter<"clusterConfig"> | number
+    failover_enabled?: BoolFilter<"clusterConfig"> | boolean
+    created_at?: DateTimeFilter<"clusterConfig"> | Date | string
+    updated_at?: DateTimeFilter<"clusterConfig"> | Date | string
+  }
+
+  export type clusterCreateWithoutConfigInput = {
+    id?: string
+    name: string
+    description?: string | null
+    cluster_slug: string
+    cluster_url: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    nodes?: serviceNodeCreateNestedManyWithoutClusterInput
+    project: projectCreateNestedOneWithoutClustersInput
+  }
+
+  export type clusterUncheckedCreateWithoutConfigInput = {
+    id?: string
+    project_id: string
+    name: string
+    description?: string | null
+    cluster_slug: string
+    cluster_url: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    nodes?: serviceNodeUncheckedCreateNestedManyWithoutClusterInput
+  }
+
+  export type clusterCreateOrConnectWithoutConfigInput = {
+    where: clusterWhereUniqueInput
+    create: XOR<clusterCreateWithoutConfigInput, clusterUncheckedCreateWithoutConfigInput>
+  }
+
+  export type clusterCreateManyConfigInputEnvelope = {
+    data: clusterCreateManyConfigInput | clusterCreateManyConfigInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type projectCreateWithoutConfigInput = {
     id?: string
     owner_id: string
     name: string
-    description: string
+    description?: string | null
     slug: string
     base_url: string
     created_at?: Date | string
     updated_at?: Date | string
+    clusters?: clusterCreateNestedManyWithoutProjectInput
   }
 
-  export type projectUncheckedCreateWithoutServicesInput = {
+  export type projectUncheckedCreateWithoutConfigInput = {
     id?: string
     owner_id: string
     name: string
-    description: string
+    description?: string | null
     slug: string
     base_url: string
     created_at?: Date | string
     updated_at?: Date | string
+    clusters?: clusterUncheckedCreateNestedManyWithoutProjectInput
   }
 
-  export type projectCreateOrConnectWithoutServicesInput = {
+  export type projectCreateOrConnectWithoutConfigInput = {
     where: projectWhereUniqueInput
-    create: XOR<projectCreateWithoutServicesInput, projectUncheckedCreateWithoutServicesInput>
+    create: XOR<projectCreateWithoutConfigInput, projectUncheckedCreateWithoutConfigInput>
   }
 
-  export type projectUpsertWithoutServicesInput = {
-    update: XOR<projectUpdateWithoutServicesInput, projectUncheckedUpdateWithoutServicesInput>
-    create: XOR<projectCreateWithoutServicesInput, projectUncheckedCreateWithoutServicesInput>
+  export type clusterUpsertWithWhereUniqueWithoutConfigInput = {
+    where: clusterWhereUniqueInput
+    update: XOR<clusterUpdateWithoutConfigInput, clusterUncheckedUpdateWithoutConfigInput>
+    create: XOR<clusterCreateWithoutConfigInput, clusterUncheckedCreateWithoutConfigInput>
+  }
+
+  export type clusterUpdateWithWhereUniqueWithoutConfigInput = {
+    where: clusterWhereUniqueInput
+    data: XOR<clusterUpdateWithoutConfigInput, clusterUncheckedUpdateWithoutConfigInput>
+  }
+
+  export type clusterUpdateManyWithWhereWithoutConfigInput = {
+    where: clusterScalarWhereInput
+    data: XOR<clusterUpdateManyMutationInput, clusterUncheckedUpdateManyWithoutConfigInput>
+  }
+
+  export type projectUpsertWithoutConfigInput = {
+    update: XOR<projectUpdateWithoutConfigInput, projectUncheckedUpdateWithoutConfigInput>
+    create: XOR<projectCreateWithoutConfigInput, projectUncheckedCreateWithoutConfigInput>
     where?: projectWhereInput
   }
 
-  export type projectUpdateToOneWithWhereWithoutServicesInput = {
+  export type projectUpdateToOneWithWhereWithoutConfigInput = {
     where?: projectWhereInput
-    data: XOR<projectUpdateWithoutServicesInput, projectUncheckedUpdateWithoutServicesInput>
+    data: XOR<projectUpdateWithoutConfigInput, projectUncheckedUpdateWithoutConfigInput>
   }
 
-  export type projectUpdateWithoutServicesInput = {
+  export type projectUpdateWithoutConfigInput = {
     id?: StringFieldUpdateOperationsInput | string
     owner_id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: StringFieldUpdateOperationsInput | string
     base_url?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    clusters?: clusterUpdateManyWithoutProjectNestedInput
   }
 
-  export type projectUncheckedUpdateWithoutServicesInput = {
+  export type projectUncheckedUpdateWithoutConfigInput = {
     id?: StringFieldUpdateOperationsInput | string
     owner_id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
     slug?: StringFieldUpdateOperationsInput | string
     base_url?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    clusters?: clusterUncheckedUpdateManyWithoutProjectNestedInput
   }
 
-  export type serviceCreateManyProjectInput = {
+  export type serviceNodeCreateWithoutClusterInput = {
+    id?: string
+    proxy_url: string
+    description?: string | null
+    is_healthy?: boolean
+    is_primary?: boolean
+    weight?: number | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    active?: boolean
+  }
+
+  export type serviceNodeUncheckedCreateWithoutClusterInput = {
+    id?: string
+    proxy_url: string
+    description?: string | null
+    is_healthy?: boolean
+    is_primary?: boolean
+    weight?: number | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    active?: boolean
+  }
+
+  export type serviceNodeCreateOrConnectWithoutClusterInput = {
+    where: serviceNodeWhereUniqueInput
+    create: XOR<serviceNodeCreateWithoutClusterInput, serviceNodeUncheckedCreateWithoutClusterInput>
+  }
+
+  export type serviceNodeCreateManyClusterInputEnvelope = {
+    data: serviceNodeCreateManyClusterInput | serviceNodeCreateManyClusterInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type clusterConfigCreateWithoutClustersInput = {
     id?: string
     name: string
-    service_url: string
-    proxy_url: string
+    config_slug: string
+    clusterMode?: $Enums.clusterMode
+    load_balancing_type?: $Enums.loadBalancingType
+    health_check_interval?: number
+    failover_enabled?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    project: projectCreateNestedOneWithoutConfigInput
+  }
+
+  export type clusterConfigUncheckedCreateWithoutClustersInput = {
+    id?: string
+    name: string
+    config_slug: string
+    project_id: string
+    clusterMode?: $Enums.clusterMode
+    load_balancing_type?: $Enums.loadBalancingType
+    health_check_interval?: number
+    failover_enabled?: boolean
     created_at?: Date | string
     updated_at?: Date | string
   }
 
-  export type serviceUpdateWithoutProjectInput = {
+  export type clusterConfigCreateOrConnectWithoutClustersInput = {
+    where: clusterConfigWhereUniqueInput
+    create: XOR<clusterConfigCreateWithoutClustersInput, clusterConfigUncheckedCreateWithoutClustersInput>
+  }
+
+  export type projectCreateWithoutClustersInput = {
+    id?: string
+    owner_id: string
+    name: string
+    description?: string | null
+    slug: string
+    base_url: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    config?: clusterConfigCreateNestedManyWithoutProjectInput
+  }
+
+  export type projectUncheckedCreateWithoutClustersInput = {
+    id?: string
+    owner_id: string
+    name: string
+    description?: string | null
+    slug: string
+    base_url: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    config?: clusterConfigUncheckedCreateNestedManyWithoutProjectInput
+  }
+
+  export type projectCreateOrConnectWithoutClustersInput = {
+    where: projectWhereUniqueInput
+    create: XOR<projectCreateWithoutClustersInput, projectUncheckedCreateWithoutClustersInput>
+  }
+
+  export type serviceNodeUpsertWithWhereUniqueWithoutClusterInput = {
+    where: serviceNodeWhereUniqueInput
+    update: XOR<serviceNodeUpdateWithoutClusterInput, serviceNodeUncheckedUpdateWithoutClusterInput>
+    create: XOR<serviceNodeCreateWithoutClusterInput, serviceNodeUncheckedCreateWithoutClusterInput>
+  }
+
+  export type serviceNodeUpdateWithWhereUniqueWithoutClusterInput = {
+    where: serviceNodeWhereUniqueInput
+    data: XOR<serviceNodeUpdateWithoutClusterInput, serviceNodeUncheckedUpdateWithoutClusterInput>
+  }
+
+  export type serviceNodeUpdateManyWithWhereWithoutClusterInput = {
+    where: serviceNodeScalarWhereInput
+    data: XOR<serviceNodeUpdateManyMutationInput, serviceNodeUncheckedUpdateManyWithoutClusterInput>
+  }
+
+  export type serviceNodeScalarWhereInput = {
+    AND?: serviceNodeScalarWhereInput | serviceNodeScalarWhereInput[]
+    OR?: serviceNodeScalarWhereInput[]
+    NOT?: serviceNodeScalarWhereInput | serviceNodeScalarWhereInput[]
+    id?: UuidFilter<"serviceNode"> | string
+    proxy_url?: StringFilter<"serviceNode"> | string
+    description?: StringNullableFilter<"serviceNode"> | string | null
+    cluster_id?: UuidFilter<"serviceNode"> | string
+    is_healthy?: BoolFilter<"serviceNode"> | boolean
+    is_primary?: BoolFilter<"serviceNode"> | boolean
+    weight?: IntNullableFilter<"serviceNode"> | number | null
+    created_at?: DateTimeFilter<"serviceNode"> | Date | string
+    updated_at?: DateTimeFilter<"serviceNode"> | Date | string
+    active?: BoolFilter<"serviceNode"> | boolean
+  }
+
+  export type clusterConfigUpsertWithoutClustersInput = {
+    update: XOR<clusterConfigUpdateWithoutClustersInput, clusterConfigUncheckedUpdateWithoutClustersInput>
+    create: XOR<clusterConfigCreateWithoutClustersInput, clusterConfigUncheckedCreateWithoutClustersInput>
+    where?: clusterConfigWhereInput
+  }
+
+  export type clusterConfigUpdateToOneWithWhereWithoutClustersInput = {
+    where?: clusterConfigWhereInput
+    data: XOR<clusterConfigUpdateWithoutClustersInput, clusterConfigUncheckedUpdateWithoutClustersInput>
+  }
+
+  export type clusterConfigUpdateWithoutClustersInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    service_url?: StringFieldUpdateOperationsInput | string
-    proxy_url?: StringFieldUpdateOperationsInput | string
+    config_slug?: StringFieldUpdateOperationsInput | string
+    clusterMode?: EnumclusterModeFieldUpdateOperationsInput | $Enums.clusterMode
+    load_balancing_type?: EnumloadBalancingTypeFieldUpdateOperationsInput | $Enums.loadBalancingType
+    health_check_interval?: IntFieldUpdateOperationsInput | number
+    failover_enabled?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    project?: projectUpdateOneRequiredWithoutConfigNestedInput
+  }
+
+  export type clusterConfigUncheckedUpdateWithoutClustersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    config_slug?: StringFieldUpdateOperationsInput | string
+    project_id?: StringFieldUpdateOperationsInput | string
+    clusterMode?: EnumclusterModeFieldUpdateOperationsInput | $Enums.clusterMode
+    load_balancing_type?: EnumloadBalancingTypeFieldUpdateOperationsInput | $Enums.loadBalancingType
+    health_check_interval?: IntFieldUpdateOperationsInput | number
+    failover_enabled?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type serviceUncheckedUpdateWithoutProjectInput = {
+  export type projectUpsertWithoutClustersInput = {
+    update: XOR<projectUpdateWithoutClustersInput, projectUncheckedUpdateWithoutClustersInput>
+    create: XOR<projectCreateWithoutClustersInput, projectUncheckedCreateWithoutClustersInput>
+    where?: projectWhereInput
+  }
+
+  export type projectUpdateToOneWithWhereWithoutClustersInput = {
+    where?: projectWhereInput
+    data: XOR<projectUpdateWithoutClustersInput, projectUncheckedUpdateWithoutClustersInput>
+  }
+
+  export type projectUpdateWithoutClustersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    owner_id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
+    base_url?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    config?: clusterConfigUpdateManyWithoutProjectNestedInput
+  }
+
+  export type projectUncheckedUpdateWithoutClustersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    owner_id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
+    base_url?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    config?: clusterConfigUncheckedUpdateManyWithoutProjectNestedInput
+  }
+
+  export type clusterCreateWithoutNodesInput = {
+    id?: string
+    name: string
+    description?: string | null
+    cluster_slug: string
+    cluster_url: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    config?: clusterConfigCreateNestedOneWithoutClustersInput
+    project: projectCreateNestedOneWithoutClustersInput
+  }
+
+  export type clusterUncheckedCreateWithoutNodesInput = {
+    id?: string
+    project_id: string
+    name: string
+    description?: string | null
+    cluster_slug: string
+    cluster_url: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    config_id?: string | null
+  }
+
+  export type clusterCreateOrConnectWithoutNodesInput = {
+    where: clusterWhereUniqueInput
+    create: XOR<clusterCreateWithoutNodesInput, clusterUncheckedCreateWithoutNodesInput>
+  }
+
+  export type clusterUpsertWithoutNodesInput = {
+    update: XOR<clusterUpdateWithoutNodesInput, clusterUncheckedUpdateWithoutNodesInput>
+    create: XOR<clusterCreateWithoutNodesInput, clusterUncheckedCreateWithoutNodesInput>
+    where?: clusterWhereInput
+  }
+
+  export type clusterUpdateToOneWithWhereWithoutNodesInput = {
+    where?: clusterWhereInput
+    data: XOR<clusterUpdateWithoutNodesInput, clusterUncheckedUpdateWithoutNodesInput>
+  }
+
+  export type clusterUpdateWithoutNodesInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    service_url?: StringFieldUpdateOperationsInput | string
-    proxy_url?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    cluster_slug?: StringFieldUpdateOperationsInput | string
+    cluster_url?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    config?: clusterConfigUpdateOneWithoutClustersNestedInput
+    project?: projectUpdateOneRequiredWithoutClustersNestedInput
+  }
+
+  export type clusterUncheckedUpdateWithoutNodesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    project_id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    cluster_slug?: StringFieldUpdateOperationsInput | string
+    cluster_url?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    config_id?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type clusterCreateManyProjectInput = {
+    id?: string
+    name: string
+    description?: string | null
+    cluster_slug: string
+    cluster_url: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    config_id?: string | null
+  }
+
+  export type clusterConfigCreateManyProjectInput = {
+    id?: string
+    name: string
+    config_slug: string
+    clusterMode?: $Enums.clusterMode
+    load_balancing_type?: $Enums.loadBalancingType
+    health_check_interval?: number
+    failover_enabled?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type clusterUpdateWithoutProjectInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    cluster_slug?: StringFieldUpdateOperationsInput | string
+    cluster_url?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    nodes?: serviceNodeUpdateManyWithoutClusterNestedInput
+    config?: clusterConfigUpdateOneWithoutClustersNestedInput
+  }
+
+  export type clusterUncheckedUpdateWithoutProjectInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    cluster_slug?: StringFieldUpdateOperationsInput | string
+    cluster_url?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    config_id?: NullableStringFieldUpdateOperationsInput | string | null
+    nodes?: serviceNodeUncheckedUpdateManyWithoutClusterNestedInput
+  }
+
+  export type clusterUncheckedUpdateManyWithoutProjectInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    cluster_slug?: StringFieldUpdateOperationsInput | string
+    cluster_url?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    config_id?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type clusterConfigUpdateWithoutProjectInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    config_slug?: StringFieldUpdateOperationsInput | string
+    clusterMode?: EnumclusterModeFieldUpdateOperationsInput | $Enums.clusterMode
+    load_balancing_type?: EnumloadBalancingTypeFieldUpdateOperationsInput | $Enums.loadBalancingType
+    health_check_interval?: IntFieldUpdateOperationsInput | number
+    failover_enabled?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    clusters?: clusterUpdateManyWithoutConfigNestedInput
+  }
+
+  export type clusterConfigUncheckedUpdateWithoutProjectInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    config_slug?: StringFieldUpdateOperationsInput | string
+    clusterMode?: EnumclusterModeFieldUpdateOperationsInput | $Enums.clusterMode
+    load_balancing_type?: EnumloadBalancingTypeFieldUpdateOperationsInput | $Enums.loadBalancingType
+    health_check_interval?: IntFieldUpdateOperationsInput | number
+    failover_enabled?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    clusters?: clusterUncheckedUpdateManyWithoutConfigNestedInput
+  }
+
+  export type clusterConfigUncheckedUpdateManyWithoutProjectInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    config_slug?: StringFieldUpdateOperationsInput | string
+    clusterMode?: EnumclusterModeFieldUpdateOperationsInput | $Enums.clusterMode
+    load_balancing_type?: EnumloadBalancingTypeFieldUpdateOperationsInput | $Enums.loadBalancingType
+    health_check_interval?: IntFieldUpdateOperationsInput | number
+    failover_enabled?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type serviceUncheckedUpdateManyWithoutProjectInput = {
+  export type clusterCreateManyConfigInput = {
+    id?: string
+    project_id: string
+    name: string
+    description?: string | null
+    cluster_slug: string
+    cluster_url: string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type clusterUpdateWithoutConfigInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    service_url?: StringFieldUpdateOperationsInput | string
-    proxy_url?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    cluster_slug?: StringFieldUpdateOperationsInput | string
+    cluster_url?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    nodes?: serviceNodeUpdateManyWithoutClusterNestedInput
+    project?: projectUpdateOneRequiredWithoutClustersNestedInput
+  }
+
+  export type clusterUncheckedUpdateWithoutConfigInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    project_id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    cluster_slug?: StringFieldUpdateOperationsInput | string
+    cluster_url?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    nodes?: serviceNodeUncheckedUpdateManyWithoutClusterNestedInput
+  }
+
+  export type clusterUncheckedUpdateManyWithoutConfigInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    project_id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    cluster_slug?: StringFieldUpdateOperationsInput | string
+    cluster_url?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type serviceNodeCreateManyClusterInput = {
+    id?: string
+    proxy_url: string
+    description?: string | null
+    is_healthy?: boolean
+    is_primary?: boolean
+    weight?: number | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    active?: boolean
+  }
+
+  export type serviceNodeUpdateWithoutClusterInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    proxy_url?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    is_healthy?: BoolFieldUpdateOperationsInput | boolean
+    is_primary?: BoolFieldUpdateOperationsInput | boolean
+    weight?: NullableIntFieldUpdateOperationsInput | number | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type serviceNodeUncheckedUpdateWithoutClusterInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    proxy_url?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    is_healthy?: BoolFieldUpdateOperationsInput | boolean
+    is_primary?: BoolFieldUpdateOperationsInput | boolean
+    weight?: NullableIntFieldUpdateOperationsInput | number | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type serviceNodeUncheckedUpdateManyWithoutClusterInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    proxy_url?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    is_healthy?: BoolFieldUpdateOperationsInput | boolean
+    is_primary?: BoolFieldUpdateOperationsInput | boolean
+    weight?: NullableIntFieldUpdateOperationsInput | number | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    active?: BoolFieldUpdateOperationsInput | boolean
   }
 
 

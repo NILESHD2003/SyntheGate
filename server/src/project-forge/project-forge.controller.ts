@@ -7,15 +7,23 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import {
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiOperation,
 } from '@nestjs/swagger';
-import { HealthDto } from './dto/health.dto';
+import { HealthDto } from '../generic-response.dto';
 import { ProjectDto } from './dto/project.dto';
 import { ProjectForgeService } from './project-forge.service';
+import {
+  CreateClusterConfigDto,
+  GetProjectConfigQueryDto,
+  GetProjectConfigsQueryDto,
+  UpdateConfigBodyDto,
+  UpdateConfigQueryDto,
+} from './dto/clusterConfig.dto';
 
 @Controller('project-forge')
 export class ProjectForgeController {
@@ -75,5 +83,38 @@ export class ProjectForgeProjectController {
   @Delete('/delete/:id')
   deleteProject() {
     return 'Delete Project API';
+  }
+}
+
+@Controller('project-forge/config')
+export class ProjectForgeConfigController {
+  constructor(private readonly projectForgeService: ProjectForgeService) {}
+
+  @Post('create')
+  async createClusterConfig(@Body() body: CreateClusterConfigDto) {
+    return await this.projectForgeService.createClusterConfig(body);
+  }
+
+  @Get('/all')
+  async getAllConfigs(@Query() query: GetProjectConfigsQueryDto) {
+    return await this.projectForgeService.getAllConfigs(query);
+  }
+
+  @Get('/get')
+  async getConfig(@Query() query: GetProjectConfigQueryDto) {
+    return await this.projectForgeService.getConfig(query);
+  }
+
+  @Patch('update')
+  async updateConfig(
+    @Query() query: UpdateConfigQueryDto,
+    @Body() body: UpdateConfigBodyDto,
+  ) {
+    return await this.projectForgeService.updateConfig(query, body);
+  }
+
+  @Delete('delete')
+  async deleteConfig(@Query() query: UpdateConfigQueryDto) {
+    return await this.projectForgeService.deleteConfig(query);
   }
 }
