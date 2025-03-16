@@ -227,7 +227,7 @@ export class ProjectForgeService {
               name: true,
               cluster_slug: true,
             },
-          }
+          },
         },
       });
 
